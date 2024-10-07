@@ -1,0 +1,123 @@
+.event-container {
+  background-color: #464545;
+  border-radius: 25px;
+  color: white;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.3s ease;
+}
+
+.event-container:hover {
+  background-color: #3b3b3b; /* Darken the background on hover */
+}
+
+.event-container:active {
+  transform: scale(0.97);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.event-details {
+  flex-grow: 1;
+}
+
+.event-time, .event-title, .event-host, .event-location, .event-registration, .event-tags {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #B9B9B9;
+}
+
+.event-time {
+  margin-top: 0;
+  padding-top: 0;
+  font-weight: bold;
+}
+
+.event-title {
+  font-weight: bold;
+  font-size: 28px;
+  overflow-wrap: break-word;
+  color: #FFFFFF;
+}
+
+.event-host, .event-location, .event-registration, .event-tags {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.event-location {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.event-host {
+  margin-top: 5px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.event-registration {
+  margin-top: 5px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.event-image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-right: 10px;
+}
+
+.host-logo, .location-logo, .registration-logo {
+  width: 16px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: text-top;
+  margin-bottom: 7px;
+}
+
+.event-host .host-logo, .event-location .location-logo, .event-registration .registration-logo {
+  margin-right: 10px !important;
+}
+
+.event-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.tag-logo {
+  margin-right: 10px;
+  width: 25px;
+  height: 29px;
+  margin-top: -8px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 10px; /* Reduced vertical padding */
+  margin-right: 8px;
+  margin-bottom: 8px;
+  background-color: #464545;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 18px;
+}
+
+.tag:hover {
+  background-color: #464545;
+}

@@ -1,0 +1,89 @@
+.mobile-event-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #464545;
+  border-radius: 20px;
+  margin: 10px 0;
+  padding: 10px;
+  overflow: hidden;
+  color: #fff;
+  align-items: flex-start; /* Align items to the left */
+  padding-left: 17px;
+  width: calc(100vw - 60px); /* Match width to the .mobile-header */
+}
+
+.mobile-event-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+}
+
+.mobile-event-time,
+.mobile-event-title,
+.mobile-event-tags {
+  margin: 5px 0;
+  text-align: left; /* Ensure text is aligned to the left */
+}
+
+.mobile-event-time {
+  font-weight: bold; /* Bold the start and end time */
+}
+
+.mobile-event-location,
+.mobile-event-host,
+.mobile-event-registration {
+  margin: 0px 0; /* Reduced margin for closer spacing */
+  text-align: left; /* Ensure text is aligned to the left */
+  margin-top: 5px;
+}
+
+.mobile-event-title {
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.mobile-location-logo,
+.mobile-host-logo,
+.mobile-registration-logo {
+  width: 17px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.mobile-event-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 0;
+}
+
+.mobile-event-image img {
+  height: 100%;
+  width: auto;
+  max-height: 100%;
+  border-radius: 10px;
+}
+
+.mobile-tag {
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 2px 5px;
+  margin-right: 5px;
+  display: inline-block;
+  border: 2px solid #C5C5C5;
+}
+
+.drawer-event-tag {
+  margin-top: 10px;
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 4px;
+  font-size: 12px;
+  color: #C5C5C5;
+  border: 2px solid #C5C5C5;
+}

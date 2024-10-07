@@ -1,0 +1,16 @@
+.news-container {
+    padding: 0 20px; /* Adds padding of 20px to the left and right sides */
+  }
+  
+  .news-item {
+    margin-bottom: 20px; /* Adds some space between each news item */
+  }
+  
+  .news-item h2 {
+    margin: 0; /* Ensures the title doesn't have extra margin */
+  }
+  
+  .news-item p {
+    margin: 5px 0; /* Adds a small margin between paragraphs */
+  }
+  

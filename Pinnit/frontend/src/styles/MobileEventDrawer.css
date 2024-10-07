@@ -1,0 +1,207 @@
+/* Styles for the drawer container */
+.drawer-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  background-color: #393838 !important; /* Drawer background color */
+  border-radius: 15px 0px 0px 15px; /* Rounded top-left and bottom-left corners */
+  overflow: auto; /* Ensure content is scrollable */
+  border: 2px solid #464545 !important; /* Add border and override any default styles */
+}
+
+/* Override any border on the drawer paper */
+.MuiDrawer-paper {
+  border: none !important;
+  box-shadow: none !important; /* Remove any box-shadow that might create a border-like effect */
+}
+
+/* Other existing styles */
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 60px; /* Add margin to create space below the header */
+}
+
+.drawer-close-button {
+  padding: 10px;
+  gap: 10px;
+  cursor: pointer;
+  position: absolute;
+  top: 0px; /* Adjusted to move the button down */
+  left: 0px; /* Move the button to the right */
+  color: white;
+  background: none; /* Remove button background */
+  border: none;
+  font-size: 40px; /* Increase the font size of the "X" */
+  z-index: 1001; /* Ensure it's on top of other elements */
+  left: -5px !important;
+}
+
+.drawer-event-title {
+  font-weight: bold !important;
+  font-size: 28px !important; /* Font size for event title */
+  text-align: center; /* Centered text */
+  color: white;
+  margin-top: 40px; /* Added more margin to push the title down */
+  margin-bottom: 20px; /* Adjusted margin to control spacing below the title */
+  line-height: 1.2 !important; /* Spacing between Title lines */
+}
+
+.drawer-event-time {
+  font-size: 17px; /* Font size for event time */
+  font-weight: bold !important;
+  text-align: center; /* Centered text */
+  margin-bottom: 10px !important; /* Added margin below the time */
+  color: white;
+}
+
+.drawer-info-container {
+  background-color: #474343; /* Updated container background color */
+  border-radius: 15px; /* Rounded corners */
+  padding: 16px; /* Padding inside the container */
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Reduced gap between info items */
+  width: 90%;
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+.drawer-info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-info-icon {
+  width: 20px;
+  height: 21px;
+}
+
+.drawer-location-icon {
+  width: 20px; /* Adjust width for location icon */
+  height: 23px; /* Adjust height for location icon */
+}
+
+.drawer-host-icon {
+  width: 19px; /* Adjust width for host icon */
+  height: 22px; /* Adjust height for host icon */
+}
+
+.drawer-registration-icon {
+  width: 20px; /* Adjust width for registration icon */
+  height: 22px; /* Adjust height for registration icon */
+}
+
+.drawer-info-text {
+  font-size: 17px !important; /* Font size for info text */
+  color: white;
+  font-weight: 200 !important;
+  line-height: 1.4 !important; /* Spacing between lines */
+}
+
+.drawer-event-tag {
+  margin-top: 10px; /* Adjust to position below the registration icon */
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 4px;
+  font-size: 12px; /* Font size for tags */
+  color: #C5C5C5; /* Text color for tags */
+  border: 2px solid #C5C5C5; /* Set the border color to #C5C5C5 */
+}
+
+.drawer-event-description {
+  margin-top: -10px !important;
+  font-size: 16.5px !important; /* Font size for description */
+  color: white;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.drawer-event-description.expanded {
+  -webkit-line-clamp: unset;
+}
+
+.drawer-see-more {
+  color: #6AA6F8; /* Color for the see more/see less text */
+  cursor: pointer;
+}
+
+.drawer-event-image-container {
+  margin-top: 16px !important;
+  display: flex;
+  justify-content: center;
+}
+
+.drawer-event-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 25px;
+}
+
+.drawer-reference-link {
+  margin-top: 16px;
+  font-size: 16px; /* Font size for the link */
+  color: #1e90ff; /* Color for the link */
+  text-align: center; /* Center the link */
+}
+
+.drawer-reference-link a {
+  color: inherit; /* Use the same color as the parent */
+  text-decoration: none; /* Remove underline */
+}
+
+.drawer-reference-link a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+.drawer-section-header {
+  font-weight: bold !important;
+  color: white;
+  margin-bottom: 0px !important; /* Add more spacing below the header */
+  font-size: 15px !important; /* Reduced font size */
+}
+
+.drawer-section-divider {
+  border: 0;
+  height: 2px; /* Increase the height for better visibility */
+  background: white;
+  margin: 4px 0 8px; /* Adjust the margins for better placement */
+  width: 80%; /* Adjust the width to not cross the entire drawer */
+  margin-left: 0; /* Align to the left */
+}
+
+.drawer-about-us-description {
+  color: white;
+  margin-top: 8px;
+}
+
+.drawer-event-details-container {
+  background-color: #474343; /* Updated container background color */
+  border-radius: 15px; /* Rounded corners */
+  padding: 16px; /* Padding inside the container */
+  display: flex;
+  flex-direction: column;
+  gap: 5px; /* Reduced gap between info items */
+  width: 90%;
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+.drawer-map-container {
+  margin-top: 10px;
+  height: 200px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+/* Prevent background scrolling when applied */
+.no-scroll {
+  overflow: hidden;
+  background-color: red; /* Temporary debug style */
+}

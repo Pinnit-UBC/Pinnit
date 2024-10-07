@@ -1,0 +1,159 @@
+/* Container for the filter component */
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 0px 0px;
+    width: 100%; /* Full width */
+    box-sizing: border-box;
+}
+
+/* Grouping of each filter category (Tags, Faculty, Degree Level) */
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px; /* Reduced spacing between filter groups */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Reduce the margin and padding of the filter category headings */
+.filter-group h4 {
+    margin-bottom: 5px; /* Reduced space below the heading */
+    margin-top: 0; /* Remove space above the heading */
+    padding: 0; /* Ensure no padding around the heading */
+    font-size: 16px;
+    color: #FFFFFF;
+}
+
+/* Styling for the filter bubbles */
+.filter-bubble {
+    padding: 10px 20px;
+    background-color: #343434;
+    border-radius: 15px;
+    border: 4px solid #464444;
+    font-size: 16px;
+    color: #FFFFFF;
+    font-weight: 650; /* Bold text for the button */
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Full width */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Hover effect for filter bubbles */
+.filter-bubble:hover {
+    background-color: #3b3b3b;
+}
+
+/* Styling for the dropdown menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #464545;
+    border-radius: 10px;
+    margin-top: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: auto; /* Adjust the width */
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 1fr)); /* Create columns for dropdown items */
+    gap: 10px 20px; /* Reduced vertical spacing between sections */
+}
+
+/* Styling for each dropdown item */
+.dropdown-item {
+    padding: 5px 20px; /* Reduced padding */
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Hover effect for dropdown items */
+.dropdown-item:hover {
+    background-color: #3b3b3b;
+}
+
+/* Style for selected items in the dropdown */
+.dropdown-item.selected {
+    font-weight: bold;
+}
+
+/* Styling for the checkmark indicating selection */
+.checkmark {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #FFFFFF;
+}
+
+/* Container for selected options */
+.selected-options {
+    display: flex;
+    margin-top: 5px;
+    width: 100%; /* Full width */
+    box-sizing: border-box;
+    overflow-x: auto; /* Allows horizontal scrolling if necessary */
+}
+
+/* Styling for selected option bubbles */
+.selected-option {
+    background-color: #464545;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-size: 14px;
+    color: #FFFFFF;
+    white-space: nowrap; /* Prevent text from wrapping */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+/* Styling for the remove ("x") button inside selected options */
+.selected-option .remove-option {
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+
+/* Styling for the sponsored events button */
+.sponsored-events-button {
+    background-color: #6AA6F8;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 20px;
+    height: 60px;
+    font-size: 16px;
+    width: 100%; /* Full width */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sponsored-events-button:hover {
+    background-color: #5f94e6;
+}
+
+.sponsored-events-button.active {
+    background-color: #5f94e6;
+}

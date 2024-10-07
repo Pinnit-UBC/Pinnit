@@ -1,0 +1,76 @@
+.message-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background to overlay the site */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it overlays everything */
+  }
+  
+  .message-box {
+    background-color: #1B1D22; /* Background color */
+    color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    text-align: center; /* Center the title and description */
+  }
+  
+  .message-box h2 {
+    margin-top: 0;
+    font-size: 24px;
+  }
+  
+  .message-box p {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  /* Align the "September 7 update notes" to the left */
+  .message-box .update-notes {
+    color: #3EA47B; /* Green color for the "September 7 update notes" */
+    margin-top: 15px;
+    font-size: 18px;
+    text-align: left; /* Ensure update notes header is aligned to the left */
+  }
+  
+  /* Align the list items to the left */
+  .message-box ul {
+    list-style-type: disc;
+    margin: 10px 0;
+    padding-left: 20px;
+    text-align: left; /* Align text to the left */
+  }
+  
+  .message-box li {
+    margin-bottom: 10px;
+  }
+  
+  .checkbox-container {
+    margin-top: 15px;
+  }
+  
+  .checkbox-container label {
+    font-size: 14px;
+    margin-left: 8px;
+  }
+  
+  button {
+    background-color: #677ED5;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+  }
+  
+  button:hover {
+    background-color: #4F66BC;
+  }
+  
