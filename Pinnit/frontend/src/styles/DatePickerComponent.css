@@ -1,0 +1,67 @@
+/* Container for the date picker component */
+.date-picker-container {
+  width: 100%;  /* Sets the width of the container to 100% */
+  margin: 0 auto;  /* Centers the container horizontally */
+}
+
+/* Ensures the width of the form control and text field is 100% */
+.MuiFormControl-root, .MuiTextField-root {
+  width: 100% !important;
+}
+
+/* Styles for the input base root element */
+.MuiInputBase-root {
+  border-radius: 15px !important;  /* Sets the border radius for rounded corners */
+  background-color: #2F2E2E;  /* Sets the background color of the input */
+  color: #B9B9B9;  /* Sets the text color */
+  width: 100%;  /* Sets the width to 100% */
+}
+
+/* Styles for the input element within the input base */
+.MuiInputBase-input {
+  color: #B9B9B9 !important;  /* Sets the text color for the input content (e.g., MM/DD/YYYY) */
+}
+
+/* Styles for the icon (calendar) inside the input */
+.MuiInputAdornment-root svg {
+  color: #B9B9B9;  /* Sets the color of the icon */
+}
+
+/* Styles for the outline (border) of the input */
+.MuiOutlinedInput-notchedOutline {
+  border-color: #4F4D4D !important;  /* Sets the color of the input border */
+  border-width: 4px !important;  /* Sets the width of the input border */
+}
+
+/* Styles for the outline (border) when the input is hovered */
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #3F3D3D;  /* Sets the color of the input border on hover */
+  border-width: 4px !important;  /* Sets the width of the input border on hover */
+}
+
+/* Styles for the outline (border) when the input is focused */
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #4F4D4D;  /* Sets the color of the input border when focused */
+  border-width: 4px !important;  /* Sets the width of the input border when focused */
+}
+
+/* Styles for the input label (floating label) */
+.MuiInputLabel-root {
+  color: #B9B9B9 !important;  /* Sets the color of the label text */
+  font-size: 1.1rem !important;  /* Sets the font size of the label text */
+}
+
+/* Additional styles for the form label (covers other states of the label) */
+.MuiFormLabel-root {
+  color: #B9B9B9;  /* Ensures the form label color is consistent */
+}
+
+/* Styles for the label when it is shrunk (e.g., when the input has value) */
+.MuiInputLabel-shrink {
+  color: #B9B9B9;  /* Sets the color of the label when it shrinks */
+}
+
+/* Styles for the calendar portion */
+.MuiPaper-root {
+  background-color: white !important;  /* Sets the background color of the calendar portion */
+}

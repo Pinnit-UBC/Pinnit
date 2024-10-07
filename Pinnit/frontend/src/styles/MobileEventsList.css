@@ -1,0 +1,7 @@
+/* MobileEventsList.css */
+#mobile-events {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

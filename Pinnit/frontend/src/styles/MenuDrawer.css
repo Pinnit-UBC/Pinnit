@@ -1,0 +1,106 @@
+.menu-drawer-paper {
+  width: 15vw !important;
+  max-width: 15vw !important;
+  background-color: #393838 !important;
+  border-radius: 0px 15px 15px 0px !important;
+  overflow: auto !important;
+  border: none !important;
+  transition: transform 0.3s ease; /* Smooth transition */
+  position: fixed; /* Fix the position so it overlays */
+  top: 0;
+  left: 0;
+  height: 100vh; /* Full height of the viewport */
+  z-index: 1000; /* Ensure it’s on top */
+}
+
+@media (max-width: 768px) {
+  .menu-drawer-paper {
+    width: 25vw !important;
+    min-width: 300px !important; /* Ensure minimum width is 300px */
+  }
+}
+
+.drawer-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  background-color: #393838 !important;
+  border-radius: 0px 15px 15px 0px !important;
+  overflow: auto;
+  border: 2px solid #464545 !important;
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.drawer-title {
+  font-weight: bold !important;
+  font-size: 28px !important;
+  text-align: center;
+  color: white;
+  margin-bottom: 0;
+  line-height: 1.2 !important;
+}
+
+.menu-button {
+  width: 40px !important;
+  height: 27px !important;
+  cursor: pointer;
+  z-index: 13;
+  position: absolute;
+  top: 12px;
+  left: 20px;
+}
+
+.drawer-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #464545;
+  text-align: center;
+}
+
+.dark-mode-button {
+  color: white !important;
+  border-color: white !important;
+}
+
+.menu-item {
+  padding: 0px 0px;
+  border-bottom: 2px solid #464545;
+  padding-top: 0px;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  cursor: pointer;
+}
+
+.menu-item-text {
+  color: white;
+  font-weight: 900 !important;
+  text-align: center;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .drawer-container {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .drawer-title {
+    font-size: 25px !important;
+  }
+
+  .menu-button {
+    width: 30px;
+    height: 30px;
+  }
+}

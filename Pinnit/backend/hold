@@ -1,0 +1,34 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+const EventsList = () => {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/events')
+      .then(response => {
+        setEvents(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching events:', error);
+      });
+  }, []);
+
+  return (
+    <div className="events-list">
+      {events.map(event => (
+        <div key={event.event_id} className="event-card">
+          <h2>{event.event_name}</h2>
+          <p>{event.start_time} - {event.end_time}</p>
+          <p>{event.location}</p>
+          <p>{event.club}</p>
+          <p>{event.bio}</p>
+          <a href={event.reference_link} target="_blank" rel="noopener noreferrer">More Info</a>
+          {event.image_url && <img src={event.image_url} alt={event.event_name} />}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default EventsList;

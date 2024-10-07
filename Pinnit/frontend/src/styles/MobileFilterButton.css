@@ -1,0 +1,77 @@
+.filter-button-container {
+    display: inline-block;
+    position: relative;
+    top: -7px; /* Adjust this value to move the button higher */
+}
+
+.mobile-filter-button {
+    background-color: #3D3C3C;
+    border: none;
+    border-radius: 10px;
+    padding: 0px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 65px;
+    height: 65px;
+}
+
+.mobile-filter-button:hover {
+    background-color: #464545;
+}
+
+.filter-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.filter-options-container {
+    padding: 20px;
+    color: white;
+    background-color: #323131; /* Set the background color of the drawer */
+    height: 100%;
+    overflow-y: auto; /* Make the container scrollable if content exceeds the height */
+}
+
+.filter-group {
+    margin-bottom: 40px; /* Adjusted spacing between filter groups */
+}
+
+.filter-group h4 {
+    margin-bottom: 5px; /* Reduced space below the heading */
+    margin-top: 10px; /* Remove space above the heading */
+    padding: 0; /* Ensure no padding around the heading */
+    font-size: 18px; /* Increased font size for the section titles */
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.dropdown-item {
+    padding: 8px 15px; /* Reduced padding for less space between options */
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #464545; /* Add border line below each dropdown item */
+}
+
+.dropdown-item:hover {
+    background-color: #3b3b3b;
+}
+
+.dropdown-item.selected {
+    font-weight: bold;
+}
+
+.checkmark {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #FFFFFF;
+}
+
+/* Highlight style for the active Popular Events button */
+.popular-events-active {
+    background-color: #5f94e6 !important;
+    transition: background-color 0.3s ease;
+}

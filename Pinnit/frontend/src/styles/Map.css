@@ -1,0 +1,12 @@
+/* Map.css */
+
+.map-container {
+    margin-top: 20px; /* Adjust the margin as needed */
+    border: 2px solid #393838; /* Add a border to the map */
+    border-radius: 15px; /* Rounded corners */
+    overflow: hidden; /* Ensure the map fits within the border radius */
+    height: 400px; /* Fixed height for the map */
+    width: 100%; /* Full width */
+    align-self: center; /* Center the map container horizontally within its flex parent */
+    
+  }

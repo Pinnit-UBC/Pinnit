@@ -1,0 +1,16 @@
+/* src/styles/Events.css */
+/* .events-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+} */
+
+.tag {
+  background-color: #B9B9B9;
+  color: #464545;
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+
