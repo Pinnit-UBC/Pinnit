@@ -93,7 +93,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Must have Node.js installed on your computer
 
 - npm
   ```sh
@@ -107,21 +107,59 @@ This is an example of how to list things you need to use the software and how to
    git clone https://github.com/Pinnit-UBC/Pinnit.git
    cd Pinnit
    ```
-2. Install NPM packages in both **frontend** and **backend** folders
+2. Install npm packages in the **frontend** directory
    ```sh
    cd frontend
    npm install
+   ```
+3. Create a .env file
+
+   ```sh
+   touch .env
+   ```
+
+   and fill in the .env file with the following variables
+
+   ```sh
+   REACT_APP_GOOGLE_MAPS_API_KEY=YOUR_KEY_GOOGLE_MAPS_API_KEY
+   REACT_APP_DRAWER_MAP_API_KEY=YOUR_DRAWER_MAP_API_KEY
+   MONGO_URI=YOUR_MONGO_URI
+   ```
+
+4. Install npm packages in the **backend** directory
+
+   ```sh
    cd ../backend
    npm install
    ```
-3. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
-   ```
-4. Change git remote url to avoid accidental pushes to base project
+
+5. Create a .env file
+
    ```sh
-   git remote set-url origin Pinnit-UBC/Pinnit
-   git remote -v # confirm the changes
+   touch .env
+   ```
+
+   and fill in the .env file with the following variables
+
+   ```sh
+   GOOGLE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY
+   MONGO_URI=YOUR_MONGO_URI
+   AWS_ACCESS_KEY_ID=YOUR_AWS_ACCESS_KEY_ID
+   AWS_SECRET_ACCESS_KEY=YOUR_AWS_SECRET_ACCESS_KEY
+   S3_BUCKET_NAME=YOUR_S3_BUCKET_NAME
+   AWS_REGION=YOUR_AWS_REGION
+   CLOUDFRONT_DOMAIN_NAME=YOUR_CLOUDFRONT_DOMAIN_NAME
+   ```
+
+6. Start the **backend** server
+
+   ```bash
+   npm start
+   ```
+
+7. Host the **frontend**
+   ```bash
+   npm start
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
