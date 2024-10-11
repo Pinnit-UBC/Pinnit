@@ -120,7 +120,7 @@ Must have Node.js installed on your computer
 
    and fill in the .env file with the following variables
 
-   ```sh
+   ```env
    REACT_APP_GOOGLE_MAPS_API_KEY=YOUR_KEY_GOOGLE_MAPS_API_KEY
    REACT_APP_DRAWER_MAP_API_KEY=YOUR_DRAWER_MAP_API_KEY
    MONGO_URI=YOUR_MONGO_URI
@@ -141,7 +141,7 @@ Must have Node.js installed on your computer
 
    and fill in the .env file with the following variables
 
-   ```sh
+   ```env
    GOOGLE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY
    MONGO_URI=YOUR_MONGO_URI
    AWS_ACCESS_KEY_ID=YOUR_AWS_ACCESS_KEY_ID
@@ -245,7 +245,7 @@ TBD
 [issues-shield]: https://img.shields.io/github/issues/Pinnit-UBC/Pinnit.svg?style=for-the-badge
 [issues-url]: https://github.com/Pinnit-UBC/Pinnit/issues
 [license-shield]: https://img.shields.io/github/license/Pinnit-UBC/Pinnit.svg?style=for-the-badge
-[license-url]: https://github.com/Pinnit-UBC/Pinnit/blob/master/LICENSE.txt
+[license-url]: https://github.com/Pinnit-UBC/Pinnit/LICENSE.md
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
