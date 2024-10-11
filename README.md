@@ -27,11 +27,7 @@
   <p align="center">
      Pinnit is a platform designed to help students stay informed about various events happening across different clubs and organizations at the University of British Columbia (UBC).
     <br />
-    <a href="https://github.com/Pinnit-UBC/Pinnit"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://github.com/Pinnit-UBC/Pinnit">View Demo</a>
-    ·
     <a href="https://github.com/Pinnit-UBC/Pinnit/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
     <a href="https://github.com/Pinnit-UBC/Pinnit/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
@@ -60,7 +56,6 @@
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -159,6 +154,7 @@ Must have Node.js installed on your computer
 
 7. Host the **frontend**
    ```bash
+   cd ../frontend
    npm start
    ```
 
@@ -168,9 +164,9 @@ Must have Node.js installed on your computer
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+- **Event Discovery:** Browse through upcoming campus events, such as club meetings, academic talks, or social gatherings, based on categories and filters
+- **Add your own events:**  Create and publish your own campus events, allowing you to share event details with the broader campus community.
+- **Share events:** Easily share event details with friends or groups via email, social media, or direct links.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -246,8 +242,6 @@ TBD
 [issues-url]: https://github.com/Pinnit-UBC/Pinnit/issues
 [license-shield]: https://img.shields.io/github/license/Pinnit-UBC/Pinnit.svg?style=for-the-badge
 [license-url]: https://github.com/Pinnit-UBC/Pinnit/LICENSE.md
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: images/screenshot.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
