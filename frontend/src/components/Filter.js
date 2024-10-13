@@ -5,10 +5,9 @@ import '../styles/Filter.css';
 function Filter({ onFilterChange }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedTags, setSelectedTags] = useState([]);
+    const [isHalloweenFilterActive, setIsHalloweenFilterActive] = useState(false); // Track Halloween button state
 
-    // Removed 'Other' from the tag options
     const tagOptions = ['Culture & Community', 'Academic & Professional', 'Sports & Fitness', 'Arts & Performance', 'Social', 'Health & Wellness', 'Varsity Sports'];
-
     const dropdownRef = useRef(null);
 
     const handleClickOutside = (event) => {
@@ -28,9 +27,7 @@ function Filter({ onFilterChange }) {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
-    const formatTagForFiltering = (tag) => {
-        return tag.toLowerCase().replace(/ & /g, '-');
-    };
+    const formatTagForFiltering = (tag) => tag.toLowerCase().replace(/ & /g, '-');
 
     const handleTagChange = (tag) => {
         const formattedTag = formatTagForFiltering(tag);
@@ -47,14 +44,24 @@ function Filter({ onFilterChange }) {
         onFilterChange(updatedTags, [], []);
     };
 
+    const handleHalloweenClick = () => {
+        setIsHalloweenFilterActive(!isHalloweenFilterActive); // Toggle the state
+        if (!isHalloweenFilterActive) {
+            onFilterChange(['halloween'], [], []); // Apply Halloween filter
+        } else {
+            onFilterChange(selectedTags, [], []); // Remove Halloween filter and show selected tags
+        }
+    };
+
     return (
         <div className="filter-container">
             <div className="filter-bubble" onClick={handleBubbleClick} ref={dropdownRef}>
-                Filter Events
+                <span className="filter-text">Filter Events</span>
+                <span className="dropdown-icon">▼</span>
                 {isDropdownOpen && (
                     <div className="dropdown-menu">
                         <div className="filter-group">
-                            <h4>Filter</h4> {/* Changed 'Tags' to 'Filter' */}
+                            <h4>Filter</h4>
                             {tagOptions.map((tag, index) => (
                                 <div
                                     key={index}
@@ -66,10 +73,12 @@ function Filter({ onFilterChange }) {
                                 </div>
                             ))}
                         </div>
-                        {/* Faculty and Degree Level sections are hidden */}
                     </div>
                 )}
             </div>
+            <button className={`halloween-button ${isHalloweenFilterActive ? 'active' : ''}`} onClick={handleHalloweenClick}>
+                View Halloween Events
+            </button>
             <div className="selected-options">
                 {selectedTags.map((tag, index) => (
                     <span key={index} className="selected-option">
