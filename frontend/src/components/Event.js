@@ -45,6 +45,17 @@ function Event({ event, onEventClick }) {
 
   return (
     <div className="event-container" onClick={handleClick}>
+      <div className="event-image">
+        <img 
+          src={imageSrc} 
+          alt="Event" 
+          onError={(e) => {
+            if (navigator.onLine) {
+              e.target.src = '/path/to/local/placeholder.png';
+            }
+          }}
+        />
+      </div>
       <div className="event-details">
         <div className="event-time">
           {formatTime(event.start_time)}
@@ -81,17 +92,6 @@ function Event({ event, onEventClick }) {
             </span>
           ))}
         </div>
-      </div>
-      <div className="event-image">
-        <img 
-          src={imageSrc} 
-          alt="Event" 
-          onError={(e) => {
-            if (navigator.onLine) {
-              e.target.src = '/path/to/local/placeholder.png';
-            }
-          }}
-        />
       </div>
     </div>
   );
