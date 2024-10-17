@@ -483,7 +483,7 @@ app.post('/add-event', upload.single('image'), async (req, res) => {
     }
 
     // Parse tags, faculty, and degree_level if they are in stringified JSON format
-    const parsedTags = JSON.parse(tags);
+    const parsedTags = JSON.parse(tags);  // Parsing tags as an array
     const parsedFaculty = JSON.parse(faculty);
     const parsedDegreeLevel = JSON.parse(degree_level);
 
@@ -505,21 +505,32 @@ app.post('/add-event', upload.single('image'), async (req, res) => {
     await newEvent.save(); // Save to the event-specific collection
     console.log('Event saved to event-specific collection:', newEvent);
 
-    // Check if the "Halloween" tag is selected and save the event to the Halloween collection as well
+    // Check if the "halloween" tag is selected and save the event to the Halloween collection as well
     if (parsedTags.includes('halloween')) {
       console.log('Halloween tag detected, saving to Halloween collection...');
+
       const halloweenEvent = new HalloweenEvent({
-        ...req.body,
-        image_url,
-        tags: parsedTags,
-        faculty: parsedFaculty,
-        degree_level: parsedDegreeLevel,
-        latitude: latitude && latitude !== 'null' ? parseFloat(latitude) : null,
-        longitude: longitude && longitude !== 'null' ? parseFloat(longitude) : null,
+        event_date: newEvent.event_date,
+        event_title: newEvent.event_title,
+        host_organization: newEvent.host_organization,
+        start_time: newEvent.start_time,
+        end_time: newEvent.end_time,
+        location: newEvent.location,
+        activity_description: newEvent.activity_description,
+        registration_status: newEvent.registration_status,
+        reference_link: newEvent.reference_link,
+        image_url: newEvent.image_url,
+        latitude: newEvent.latitude,
+        longitude: newEvent.longitude,
+        tags: newEvent.tags,
+        faculty: newEvent.faculty,
+        degree_level: newEvent.degree_level
       });
 
       await halloweenEvent.save(); // Save to the Halloween collection
       console.log('Event also saved to Halloween collection:', halloweenEvent);
+    } else {
+      console.log('Halloween tag NOT detected, skipping Halloween collection save.');
     }
 
     res.status(201).json(newEvent); // Return the new event as the response
