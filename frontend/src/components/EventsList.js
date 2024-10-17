@@ -24,13 +24,23 @@ function EventsList({ events }) {
     setFilteredEvents(filtered);
   };
 
+  const handleHalloweenClick = async () => {
+    try {
+      const response = await fetch('https://backend-8eis.onrender.com/halloween-events');
+      const data = await response.json();
+      setFilteredEvents(data); // Set the fetched Halloween events
+    } catch (error) {
+      console.error('Error fetching Halloween events:', error);
+    }
+  };
+
   useEffect(() => {
     setFilteredEvents(events);
   }, [events]);
 
   return (
     <>
-      <Filter onFilterChange={handleFilterChange} />
+      <Filter onFilterChange={handleFilterChange} onHalloweenClick={handleHalloweenClick} />
       <section id="events">
         {filteredEvents.map(event => (
           <Event key={event._id} event={event} onEventClick={handleEventClick} />
