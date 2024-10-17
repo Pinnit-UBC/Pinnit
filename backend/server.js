@@ -448,7 +448,7 @@ app.get('/event/:eventId', async (req, res) => {
   }
 });
 
-// Define Halloween event schema
+// Define the Halloween event schema
 const halloweenEventSchema = new mongoose.Schema({
   event_date: String,
   event_title: String,
@@ -462,10 +462,9 @@ const halloweenEventSchema = new mongoose.Schema({
   image_url: String,
   latitude: Number,
   longitude: Number,
-  Address: String,
-  tags: [String], // Tags field
+  tags: [String],
   faculty: [String],
-  degree_level: [String]
+  degree_level: [String],
 });
 
 const HalloweenEvent = mongoose.model('HalloweenEvent', halloweenEventSchema, 'Halloween');
@@ -476,44 +475,52 @@ app.post('/add-event', upload.single('image'), async (req, res) => {
     const { event_date, latitude, longitude, tags, faculty, degree_level } = req.body;
     let image_url = '';
 
+    // Check if an image was uploaded and upload to S3
     if (req.file) {
       const cloudFrontUrl = await uploadFileToS3(req.file.path, req.file.filename);
       image_url = cloudFrontUrl;
-      fs.unlinkSync(req.file.path); // Remove local file
+      fs.unlinkSync(req.file.path); // Remove local file after uploading
     }
 
-    // Get the model for the event collection dynamically
+    // Parse tags, faculty, and degree_level if they are in stringified JSON format
+    const parsedTags = JSON.parse(tags);
+    const parsedFaculty = JSON.parse(faculty);
+    const parsedDegreeLevel = JSON.parse(degree_level);
+
+    // Get the model for the event collection based on the event date
     const EventModel = getEventModel(event_date);
 
     const newEvent = new EventModel({
       ...req.body,
       image_url,
-      tags: JSON.parse(tags), 
-      faculty: JSON.parse(faculty), 
-      degree_level: JSON.parse(degree_level),
+      tags: parsedTags,
+      faculty: parsedFaculty,
+      degree_level: parsedDegreeLevel,
       latitude: latitude && latitude !== 'null' ? parseFloat(latitude) : null,
       longitude: longitude && longitude !== 'null' ? parseFloat(longitude) : null,
     });
 
-    await newEvent.save();
+    await newEvent.save(); // Save to the event-specific collection
+    console.log('Event saved:', newEvent);
 
-    // Check if the event has the "Halloween" tag
-    if (JSON.parse(tags).includes('halloween')) {
+    // Check if the "Halloween" tag is selected and save the event to the Halloween collection as well
+    if (parsedTags.includes('halloween')) {
       const halloweenEvent = new HalloweenEvent({
         ...req.body,
         image_url,
-        tags: JSON.parse(tags),
-        faculty: JSON.parse(faculty),
-        degree_level: JSON.parse(degree_level),
+        tags: parsedTags,
+        faculty: parsedFaculty,
+        degree_level: parsedDegreeLevel,
         latitude: latitude && latitude !== 'null' ? parseFloat(latitude) : null,
         longitude: longitude && longitude !== 'null' ? parseFloat(longitude) : null,
       });
-      await halloweenEvent.save();
+
+      await halloweenEvent.save(); // Save to the Halloween collection
       console.log('Event also saved to Halloween collection:', halloweenEvent);
     }
 
-    console.log('Event saved:', newEvent);
-    res.status(201).json(newEvent);
+    res.status(201).json(newEvent); // Return the new event as the response
+
   } catch (err) {
     console.error('Error adding event:', err);
     res.status(500).json({ message: 'Error adding event', error: err.message });
