@@ -505,6 +505,24 @@ app.get('/event/:eventId', async (req, res) => {
   }
 });
 
+// Route to get Halloween events sorted by date and time, and filter out past events
+app.get('/halloween-events', async (req, res) => {
+  const today = dayjs().startOf('day'); // Get today's date at midnight
+
+  try {
+    const HalloweenEvents = await HalloweenEvent.find({
+      event_date: { $gte: today.format('YYYY-MM-DD') }, // Filter for future events
+    }).sort({ event_date: 1, start_time: 1 }); // Sort by date and time
+
+    res.json(HalloweenEvents);
+  } catch (err) {
+    console.error('Error fetching Halloween events:', err);
+    res.status(500).json({ error: 'Error fetching Halloween events' });
+  }
+});
+
+
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
