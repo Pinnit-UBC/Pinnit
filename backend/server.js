@@ -487,6 +487,8 @@ app.post('/add-event', upload.single('image'), async (req, res) => {
     const parsedFaculty = JSON.parse(faculty);
     const parsedDegreeLevel = JSON.parse(degree_level);
 
+    console.log('Parsed Tags:', parsedTags); // Log the parsed tags for debugging
+
     // Get the model for the event collection based on the event date
     const EventModel = getEventModel(event_date);
 
@@ -501,10 +503,11 @@ app.post('/add-event', upload.single('image'), async (req, res) => {
     });
 
     await newEvent.save(); // Save to the event-specific collection
-    console.log('Event saved:', newEvent);
+    console.log('Event saved to event-specific collection:', newEvent);
 
     // Check if the "Halloween" tag is selected and save the event to the Halloween collection as well
     if (parsedTags.includes('halloween')) {
+      console.log('Halloween tag detected, saving to Halloween collection...');
       const halloweenEvent = new HalloweenEvent({
         ...req.body,
         image_url,
