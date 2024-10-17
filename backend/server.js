@@ -448,6 +448,79 @@ app.get('/event/:eventId', async (req, res) => {
   }
 });
 
+// Define Halloween event schema
+const halloweenEventSchema = new mongoose.Schema({
+  event_date: String,
+  event_title: String,
+  host_organization: String,
+  start_time: String,
+  end_time: { type: String, default: null },
+  location: String,
+  activity_description: String,
+  registration_status: String,
+  reference_link: String,
+  image_url: String,
+  latitude: Number,
+  longitude: Number,
+  Address: String,
+  tags: [String], // Tags field
+  faculty: [String],
+  degree_level: [String]
+});
+
+const HalloweenEvent = mongoose.model('HalloweenEvent', halloweenEventSchema, 'Halloween');
+
+// Route to add an event
+app.post('/add-event', upload.single('image'), async (req, res) => {
+  try {
+    const { event_date, latitude, longitude, tags, faculty, degree_level } = req.body;
+    let image_url = '';
+
+    if (req.file) {
+      const cloudFrontUrl = await uploadFileToS3(req.file.path, req.file.filename);
+      image_url = cloudFrontUrl;
+      fs.unlinkSync(req.file.path); // Remove local file
+    }
+
+    // Get the model for the event collection dynamically
+    const EventModel = getEventModel(event_date);
+
+    const newEvent = new EventModel({
+      ...req.body,
+      image_url,
+      tags: JSON.parse(tags), 
+      faculty: JSON.parse(faculty), 
+      degree_level: JSON.parse(degree_level),
+      latitude: latitude && latitude !== 'null' ? parseFloat(latitude) : null,
+      longitude: longitude && longitude !== 'null' ? parseFloat(longitude) : null,
+    });
+
+    await newEvent.save();
+
+    // Check if the event has the "Halloween" tag
+    if (JSON.parse(tags).includes('halloween')) {
+      const halloweenEvent = new HalloweenEvent({
+        ...req.body,
+        image_url,
+        tags: JSON.parse(tags),
+        faculty: JSON.parse(faculty),
+        degree_level: JSON.parse(degree_level),
+        latitude: latitude && latitude !== 'null' ? parseFloat(latitude) : null,
+        longitude: longitude && longitude !== 'null' ? parseFloat(longitude) : null,
+      });
+      await halloweenEvent.save();
+      console.log('Event also saved to Halloween collection:', halloweenEvent);
+    }
+
+    console.log('Event saved:', newEvent);
+    res.status(201).json(newEvent);
+  } catch (err) {
+    console.error('Error adding event:', err);
+    res.status(500).json({ message: 'Error adding event', error: err.message });
+  }
+});
+
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
