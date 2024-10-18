@@ -1,24 +1,24 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import subscribeIcon from '../assets/subscribe-icon.png';
-import pinnitLogo from '../assets/pinnit_logo.png';
-import MenuDrawer from './MenuDrawer';
-import menuButtonIcon from '../assets/Menu.png';
-import '../styles/Header.css';
-import '../styles/MobileHeader.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import subscribeIcon from "../../assets/subscribe-icon.png";
+import pinnitLogo from "../../assets/pinnit_logo.png";
+import MenuDrawer from "../MenuDrawer";
+import menuButtonIcon from "../../assets/Menu.png";
+import "../../styles/Header.css";
+import "../../styles/MobileHeader.css";
 
 function Header() {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const handleAddEventClick = () => {
-    navigate('/add-event');
+    navigate("/add-event");
     window.scrollTo(0, 0); // Ensure the page scrolls to the top when navigating
   };
 
   const handleSubscribeClick = () => {
-    navigate('/subscribe');
+    navigate("/subscribe");
     window.scrollTo(0, 0);
   };
 
@@ -42,7 +42,7 @@ function Header() {
         />
         <span
           className="subscribe-text"
-          style={{ textDecoration: 'underline', cursor: 'pointer' }}
+          style={{ textDecoration: "underline", cursor: "pointer" }}
           onClick={handleSubscribeClick} // Apply onClick to the text
         >
           Click here to subscribe to the UBC events newsletter
