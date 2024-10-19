@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import subscribeIcon from '../assets/subscribe-icon.png';
 import pinnitLogo from '../assets/pinnit_logo.png';
+import halloweenLogo from '../assets/pinnit_halloween_logo.png' // Temporary logo for halloween
 import MenuDrawer from './MenuDrawer';
 import menuButtonIcon from '../assets/Menu.png';
 import '../styles/Header.css';
@@ -30,7 +31,7 @@ function Header() {
     <header>
       <div className="background-image">
         <div className="logo-container">
-          <img src={pinnitLogo} alt="Pinnit Logo" className="header-logo" />
+          <img src={halloweenLogo} alt="Pinnit Logo" className="header-logo" />
         </div>
       </div>
       <div className="subscribe-banner">
