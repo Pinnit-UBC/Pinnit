@@ -24,6 +24,7 @@ const tagOptions = [
   { value: 'social', label: 'Social' },
   { value: 'varsity-sports', label: 'Varsity Sports' },
   { value: 'health-wellness', label: 'Health & Wellness' },
+  { value: 'halloween', label: 'Halloween' },  // Added Halloween tag
   { value: 'other', label: 'Other' }
 ];
 

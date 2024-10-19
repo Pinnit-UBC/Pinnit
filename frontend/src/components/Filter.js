@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/Filter.css';
 
-function Filter({ onFilterChange }) {
+function Filter({ onFilterChange, onHalloweenClick }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [selectedTags, setSelectedTags] = useState([]);
     const [isHalloweenFilterActive, setIsHalloweenFilterActive] = useState(false); // Track Halloween button state
@@ -44,10 +44,10 @@ function Filter({ onFilterChange }) {
         onFilterChange(updatedTags, [], []);
     };
 
-    const handleHalloweenClick = () => {
-        setIsHalloweenFilterActive(!isHalloweenFilterActive); // Toggle the state
+    const handleHalloweenClick = async () => {
+        setIsHalloweenFilterActive((prevState) => !prevState); // Toggle the state
         if (!isHalloweenFilterActive) {
-            onFilterChange(['halloween'], [], []); // Apply Halloween filter
+            await onHalloweenClick(); // Call the new function to fetch Halloween events
         } else {
             onFilterChange(selectedTags, [], []); // Remove Halloween filter and show selected tags
         }
@@ -92,6 +92,7 @@ function Filter({ onFilterChange }) {
 
 Filter.propTypes = {
     onFilterChange: PropTypes.func.isRequired,
+    onHalloweenClick: PropTypes.func.isRequired,
 };
 
 export default Filter;
