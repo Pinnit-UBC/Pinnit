@@ -16,7 +16,7 @@
     background-color: #343434;
     border-radius: 15px;
     border: 4px solid #464444;
-    font-size: 16px;
+    font-size: 20px;
     color: #FFFFFF;
     font-weight: bold;
     cursor: pointer;
@@ -26,6 +26,7 @@
     align-items: center; /* Vertically center content */
     justify-content: center; /* Center content horizontally */
     white-space: nowrap;
+
 }
 
 /* Styling for the filter text */
@@ -128,7 +129,7 @@
 .halloween-button {
     background-color: #FF5733;
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     padding: 15px 30px; /* Consistent padding */
     border: none;
     border-radius: 15px;
