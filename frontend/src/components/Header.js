@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import subscribeIcon from '../assets/subscribe-icon.png';
-import pinnitLogo from '../assets/pinnit_logo.png';
+//import pinnitLogo from '../assets/pinnit_logo.png';
 import halloweenLogo from '../assets/pinnit_halloween_logo.png' // Temporary logo for halloween
 import MenuDrawer from './MenuDrawer';
 import menuButtonIcon from '../assets/Menu.png';
