@@ -54,20 +54,17 @@
   margin-bottom: 0px;
   margin-top: 0px;
   padding-top: 0px;
-  
 }
 
 .event-location {
   margin-bottom: 0;
   padding-bottom: 0;
-  
 }
 
 .event-host {
   margin-top: 5px;
   margin-bottom: 0;
   padding-bottom: 0;
-
 }
 
 .event-registration {
@@ -112,7 +109,7 @@
 
 .tag {
   display: inline-block;
-  padding: 2px 10px; /* Reduced vertical padding */
+  padding: 2px 10px;
   margin-right: 8px;
   margin-bottom: 8px;
   background-color: #464545;
@@ -123,4 +120,12 @@
 
 .tag:hover {
   background-color: #464545;
+}
+
+/* New CSS class to bolden the Halloween event date */
+.halloween-event-date {
+  font-weight: bold;
+  font-size: 20px;
+  color: #FFFFFF; /* Keep the date color consistent */
+  margin-bottom: 10px;
 }

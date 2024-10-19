@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/MobileEvent.css';
 import MobileEventDrawer from './MobileEventDrawer';
+import dayjs from 'dayjs'; // Assuming you're using dayjs
 
 function formatTime(time) {
   if (!time) return 'N/A';

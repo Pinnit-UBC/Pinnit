@@ -45,7 +45,7 @@ function Filter({ onFilterChange, onHalloweenClick }) {
     };
 
     const handleHalloweenClick = async () => {
-        setIsHalloweenFilterActive(!isHalloweenFilterActive); // Toggle the state
+        setIsHalloweenFilterActive((prevState) => !prevState); // Toggle the state
         if (!isHalloweenFilterActive) {
             await onHalloweenClick(); // Call the new function to fetch Halloween events
         } else {
@@ -92,7 +92,7 @@ function Filter({ onFilterChange, onHalloweenClick }) {
 
 Filter.propTypes = {
     onFilterChange: PropTypes.func.isRequired,
-    onHalloweenClick: PropTypes.func.isRequired, // Add this new prop
+    onHalloweenClick: PropTypes.func.isRequired,
 };
 
 export default Filter;
