@@ -206,36 +206,93 @@ app.post('/verify-key', async (req, res) => {
   }
 });
 
+// Define the Halloween event schema
+const halloweenEventSchema = new mongoose.Schema({
+  event_date: String,
+  event_title: String,
+  host_organization: String,
+  start_time: String,
+  end_time: { type: String, default: null },
+  location: String,
+  activity_description: String,
+  registration_status: String,
+  reference_link: String,
+  image_url: String,
+  latitude: Number,
+  longitude: Number,
+  tags: [String],
+  faculty: [String],
+  degree_level: [String],
+});
+
+const HalloweenEvent = mongoose.model('HalloweenEvent', halloweenEventSchema, 'Halloween');
+
 // Route to add an event
 app.post('/add-event', upload.single('image'), async (req, res) => {
   try {
-    console.log('Request body:', req.body);
-
     const { event_date, latitude, longitude, tags, faculty, degree_level } = req.body;
     let image_url = '';
 
+    // Check if an image was uploaded and upload to S3
     if (req.file) {
       const cloudFrontUrl = await uploadFileToS3(req.file.path, req.file.filename);
       image_url = cloudFrontUrl;
-      fs.unlinkSync(req.file.path); // Remove local file
+      fs.unlinkSync(req.file.path); // Remove local file after uploading
     }
 
-    // Get the model for the event collection dynamically
+    // Parse tags, faculty, and degree_level if they are in stringified JSON format
+    const parsedTags = Array.isArray(tags) ? tags : JSON.parse(tags); // Safeguard for tags
+    const parsedFaculty = Array.isArray(faculty) ? faculty : JSON.parse(faculty);
+    const parsedDegreeLevel = Array.isArray(degree_level) ? degree_level : JSON.parse(degree_level);
+
+    console.log('Parsed Tags:', parsedTags); // Log the parsed tags for debugging
+
+    // Get the model for the event collection based on the event date
     const EventModel = getEventModel(event_date);
 
     const newEvent = new EventModel({
       ...req.body,
       image_url,
-      tags: JSON.parse(tags), // Parse tags back to array
-      faculty: JSON.parse(faculty), // Parse faculty back to array
-      degree_level: JSON.parse(degree_level), // Parse degree level back to array
+      tags: parsedTags,
+      faculty: parsedFaculty,
+      degree_level: parsedDegreeLevel,
       latitude: latitude && latitude !== 'null' ? parseFloat(latitude) : null,
       longitude: longitude && longitude !== 'null' ? parseFloat(longitude) : null,
     });
 
-    await newEvent.save();
-    console.log('Event saved:', newEvent);
-    res.status(201).json(newEvent);
+    await newEvent.save(); // Save to the event-specific collection
+    console.log('Event saved to event-specific collection:', newEvent);
+
+    // Check if the "halloween" tag is selected and save the event to the Halloween collection as well
+    if (parsedTags.includes('halloween')) {
+      console.log('Halloween tag detected, saving to Halloween collection...');
+
+      const halloweenEvent = new HalloweenEvent({
+        event_date: newEvent.event_date,
+        event_title: newEvent.event_title,
+        host_organization: newEvent.host_organization,
+        start_time: newEvent.start_time,
+        end_time: newEvent.end_time,
+        location: newEvent.location,
+        activity_description: newEvent.activity_description,
+        registration_status: newEvent.registration_status,
+        reference_link: newEvent.reference_link,
+        image_url: newEvent.image_url,
+        latitude: newEvent.latitude,
+        longitude: newEvent.longitude,
+        tags: newEvent.tags,
+        faculty: newEvent.faculty,
+        degree_level: newEvent.degree_level
+      });
+
+      await halloweenEvent.save(); // Save to the Halloween collection
+      console.log('Event also saved to Halloween collection:', halloweenEvent);
+    } else {
+      console.log('Halloween tag NOT detected, skipping Halloween collection save.');
+    }
+
+    res.status(201).json(newEvent); // Return the new event as the response
+
   } catch (err) {
     console.error('Error adding event:', err);
     res.status(500).json({ message: 'Error adding event', error: err.message });
@@ -447,6 +504,24 @@ app.get('/event/:eventId', async (req, res) => {
     res.status(500).json({ message: 'Error fetching event', error: err.message });
   }
 });
+
+// Route to get Halloween events sorted by date and time, and filter out past events
+app.get('/halloween-events', async (req, res) => {
+  const today = dayjs().startOf('day'); // Get today's date at midnight
+
+  try {
+    const HalloweenEvents = await HalloweenEvent.find({
+      event_date: { $gte: today.format('YYYY-MM-DD') }, // Filter for future events
+    }).sort({ event_date: 1, start_time: 1 }); // Sort by date and time
+
+    res.json(HalloweenEvents);
+  } catch (err) {
+    console.error('Error fetching Halloween events:', err);
+    res.status(500).json({ error: 'Error fetching Halloween events' });
+  }
+});
+
+
 
 // Start the server
 app.listen(PORT, () => {

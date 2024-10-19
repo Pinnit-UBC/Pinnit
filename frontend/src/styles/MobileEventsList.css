@@ -5,3 +5,34 @@
   align-items: center;
   width: 100%;
 }
+
+/* General style for the "View Halloween Events" button */
+.halloween-button-mobile {
+  background-color: #ff6600; /* Halloween-themed color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px 0;
+  display: block;
+  width: 100%; /* Make it full-width */
+  text-align: center;
+  width: 250px;
+  height: 50px;
+  font-weight: bold;
+}
+
+/* Change style when hovering over the button */
+.halloween-button-mobile:hover {
+  background-color: #cc5200; /* Darken the color on hover */
+}
+
+/* Media query to apply styles only for screens less than 600px (mobile) */
+@media (max-width: 600px) {
+  .halloween-button-mobile {
+    font-size: 18px; /* Increase font size on mobile */
+    padding: 15px 25px; /* Adjust padding for mobile */
+  }
+}

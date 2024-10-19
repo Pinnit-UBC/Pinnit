@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Event.css';
 
+// Function to format the date consistently to "MMMM D YYYY" (e.g., "October 25 2024")
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
+}
+
+// Function to format the time (e.g., "10:00pm")
 function formatTime(time) {
   const [hours, minutes] = time.split(':');
   const period = hours >= 12 ? 'pm' : 'am';
@@ -17,7 +25,7 @@ function formatTag(tag) {
     .join(' & ');
 }
 
-function Event({ event, onEventClick }) {
+function Event({ event, onEventClick, isHalloweenFilterActive }) {
   const [imageSrc, setImageSrc] = useState(
     event.image_base64 || '/path/to/local/placeholder.png'
   );
@@ -36,10 +44,10 @@ function Event({ event, onEventClick }) {
     if (onEventClick) {
       onEventClick(event);
     }
-    if (event._id) { // Ensure that the event ID is available
+    if (event._id) {
       navigate(`/event/${event._id}`);
     } else {
-      console.error("Event ID is undefined");
+      console.error('Event ID is undefined');
     }
   };
 
@@ -57,23 +65,41 @@ function Event({ event, onEventClick }) {
         />
       </div>
       <div className="event-details">
+        {/* Date - only shown for Halloween events */}
+        {isHalloweenFilterActive && (
+          <div className="event-date halloween-event-date">
+            {formatDate(event.event_date)}
+          </div>
+        )}
+        
+        {/* Time (start and end time on separate line) */}
         <div className="event-time">
           {formatTime(event.start_time)}
           {event.end_time && ` to ${formatTime(event.end_time)}`}
         </div>
+        
+        {/* Event Title */}
         <div className="event-title">{event.event_title}</div>
+
+        {/* Location */}
         <div className="event-location">
           <img src="/assets/mdi_location.png" alt="Location Logo" className="location-logo" />
           {event.location}
         </div>
+
+        {/* Host Organization */}
         <div className="event-host">
           <img src="/assets/teenyicons_user-solid.png" alt="Host Logo" className="host-logo" />
           {event.host_organization}
         </div>
+
+        {/* Registration Status */}
         <div className="event-registration">
           <img src="/assets/Signing A Document.png" alt="Registration Logo" className="registration-logo" />
           {event.registration_status}
         </div>
+
+        {/* Tags */}
         <div className="event-tags">
           <img src="/assets/Tag.png" alt="Tag Icon" className="tag-logo" />
           {event.tags && event.tags.map((tag, index) => (
@@ -99,20 +125,22 @@ function Event({ event, onEventClick }) {
 
 Event.propTypes = {
   event: PropTypes.shape({
-    _id: PropTypes.string, // Ensure that _id is included in the propTypes
-    start_time: PropTypes.string,
+    _id: PropTypes.string,
+    event_date: PropTypes.string.isRequired,
+    start_time: PropTypes.string.isRequired,
     end_time: PropTypes.string,
-    event_title: PropTypes.string,
-    host_organization: PropTypes.string,
-    location: PropTypes.string,
+    event_title: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
+    host_organization: PropTypes.string.isRequired,
     tags: PropTypes.arrayOf(PropTypes.string),
     faculty: PropTypes.arrayOf(PropTypes.string),
     degree_level: PropTypes.arrayOf(PropTypes.string),
     image_url: PropTypes.string,
     image_base64: PropTypes.string,
-    registration_status: PropTypes.string,
+    registration_status: PropTypes.string.isRequired,
   }).isRequired,
   onEventClick: PropTypes.func.isRequired,
+  isHalloweenFilterActive: PropTypes.bool.isRequired, // Prop to check if Halloween filter is active
 };
 
 export default Event;
