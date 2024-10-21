@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
-import { GoogleMap, LoadScriptNext } from '@react-google-maps/api';
-import '../styles/MobileDrawerMap.css';
+import React, { useEffect, useRef } from "react";
+import { GoogleMap, LoadScriptNext } from "@react-google-maps/api";
+import "../../styles/MobileDrawerMap.css";
 
 const containerStyle = {
-  width: '100%',
-  height: '200px',
+  width: "100%",
+  height: "200px",
 };
 
 function MobileDrawerMap({ latitude, longitude }) {
@@ -14,7 +14,10 @@ function MobileDrawerMap({ latitude, longitude }) {
 
   useEffect(() => {
     if (mapRef.current && !isNaN(latitude) && !isNaN(longitude)) {
-      const position = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
+      const position = {
+        lat: parseFloat(latitude),
+        lng: parseFloat(longitude),
+      };
       mapRef.current.panTo(position);
 
       if (markerRef.current) {
@@ -29,7 +32,7 @@ function MobileDrawerMap({ latitude, longitude }) {
   }, [latitude, longitude]);
 
   if (!apiKey) {
-    console.error('Google Maps API key is missing');
+    console.error("Google Maps API key is missing");
     return <div>Google Maps API key is missing</div>;
   }
 
@@ -37,12 +40,18 @@ function MobileDrawerMap({ latitude, longitude }) {
     <LoadScriptNext googleMapsApiKey={apiKey}>
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={{ lat: parseFloat(latitude) || 0, lng: parseFloat(longitude) || 0 }}
+        center={{
+          lat: parseFloat(latitude) || 0,
+          lng: parseFloat(longitude) || 0,
+        }}
         zoom={15}
         onLoad={(map) => {
           mapRef.current = map;
           if (!isNaN(latitude) && !isNaN(longitude)) {
-            const position = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
+            const position = {
+              lat: parseFloat(latitude),
+              lng: parseFloat(longitude),
+            };
             map.panTo(position);
 
             markerRef.current = new window.google.maps.Marker({
