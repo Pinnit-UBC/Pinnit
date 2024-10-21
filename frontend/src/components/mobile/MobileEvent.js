@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import '../styles/MobileEvent.css';
-import MobileEventDrawer from './MobileEventDrawer';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import "../../styles/MobileEvent.css";
+import MobileEventDrawer from "./MobileEventDrawer";
 // import dayjs from 'dayjs'; // Assuming you're using dayjs
 
 function formatTime(time) {
-  if (!time) return 'N/A';
-  const [hours, minutes] = time.split(':');
-  const period = hours >= 12 ? 'pm' : 'am';
+  if (!time) return "N/A";
+  const [hours, minutes] = time.split(":");
+  const period = hours >= 12 ? "pm" : "am";
   const formattedHours = hours % 12 || 12;
   return `${formattedHours}:${minutes}${period}`;
 }
 
 function formatTag(tag) {
   return tag
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' & ');
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" & ");
 }
 
 function MobileEvent({ event, onEventClick }) {
   const [imageSrc, setImageSrc] = useState(
-    event.image_base64 || '/path/to/local/placeholder.png'
+    event.image_base64 || "/path/to/local/placeholder.png"
   );
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -30,7 +30,7 @@ function MobileEvent({ event, onEventClick }) {
       const img = new Image();
       img.src = event.image_url;
       img.onload = () => setImageSrc(event.image_url);
-      img.onerror = () => setImageSrc('/path/to/local/placeholder.png');
+      img.onerror = () => setImageSrc("/path/to/local/placeholder.png");
     }
   }, [event.image_url, event.image_base64]);
 
@@ -41,28 +41,40 @@ function MobileEvent({ event, onEventClick }) {
       <div className="mobile-event-container" onClick={handleEventClick}>
         <div className="mobile-event-details">
           <div className="mobile-event-time">
-            {event.start_time ? (
-              event.end_time ? (
-                `${formatTime(event.start_time)} to ${formatTime(event.end_time)}`
-              ) : (
-                formatTime(event.start_time)
-              )
-            ) : (
-              'Time not available'
-            )}
+            {event.start_time
+              ? event.end_time
+                ? `${formatTime(event.start_time)} to ${formatTime(
+                    event.end_time
+                  )}`
+                : formatTime(event.start_time)
+              : "Time not available"}
           </div>
-          <div className="mobile-event-title">{event.event_title || 'Title not available'}</div>
+          <div className="mobile-event-title">
+            {event.event_title || "Title not available"}
+          </div>
           <div className="mobile-event-location">
-            <img src="/assets/mdi_location.png" alt="Location Logo" className="mobile-location-logo" />
-            {event.location || 'Location not available'}
+            <img
+              src="/assets/mdi_location.png"
+              alt="Location Logo"
+              className="mobile-location-logo"
+            />
+            {event.location || "Location not available"}
           </div>
           <div className="mobile-event-host">
-            <img src="/assets/teenyicons_user-solid.png" alt="Host Logo" className="mobile-host-logo" />
-            {event.host_organization || 'Host not available'}
+            <img
+              src="/assets/teenyicons_user-solid.png"
+              alt="Host Logo"
+              className="mobile-host-logo"
+            />
+            {event.host_organization || "Host not available"}
           </div>
           <div className="mobile-event-registration">
-            <img src="/assets/Signing A Document.png" alt="Registration Logo" className="mobile-registration-logo" />
-            {event.registration_status || 'Registration status not available'}
+            <img
+              src="/assets/Signing A Document.png"
+              alt="Registration Logo"
+              className="mobile-registration-logo"
+            />
+            {event.registration_status || "Registration status not available"}
           </div>
 
           {/* Tags Section - includes tags, faculty, and degree_level */}
@@ -73,36 +85,46 @@ function MobileEvent({ event, onEventClick }) {
               {/* Render event tags */}
               {event.tags &&
                 event.tags.map((tag, index) => (
-                  <span key={index} className="mobile-tag">{formatTag(tag)}</span>
+                  <span key={index} className="mobile-tag">
+                    {formatTag(tag)}
+                  </span>
                 ))}
 
               {/* Render faculty tags */}
               {event.faculty &&
                 event.faculty.map((faculty, index) => (
-                  <span key={index} className="mobile-tag">{formatTag(faculty)}</span>
+                  <span key={index} className="mobile-tag">
+                    {formatTag(faculty)}
+                  </span>
                 ))}
 
               {/* Render degree level tags */}
               {event.degree_level &&
                 event.degree_level.map((degree, index) => (
-                  <span key={index} className="mobile-tag">{formatTag(degree)}</span>
+                  <span key={index} className="mobile-tag">
+                    {formatTag(degree)}
+                  </span>
                 ))}
             </div>
           )}
         </div>
         <div className="mobile-event-image">
-          <img 
-            src={imageSrc} 
-            alt="Event" 
+          <img
+            src={imageSrc}
+            alt="Event"
             onError={(e) => {
               if (navigator.onLine) {
-                e.target.src = '/path/to/local/placeholder.png';
+                e.target.src = "/path/to/local/placeholder.png";
               }
             }}
           />
         </div>
       </div>
-      <MobileEventDrawer event={event} open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <MobileEventDrawer
+        event={event}
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      />
     </>
   );
 }

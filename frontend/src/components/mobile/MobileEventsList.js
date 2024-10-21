@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import MobileEvent from './MobileEvent';
-import '../styles/MobileEventsList.css';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import MobileEvent from "./MobileEvent";
+import "../../styles/MobileEventsList.css";
 
 function MobileEventsList({ events, onEventClick }) {
   const [filteredEvents, setFilteredEvents] = useState(events);
 
   const handleHalloweenClick = async () => {
     try {
-      const response = await fetch('https://backend-8eis.onrender.com/halloween-events');
+      const response = await fetch(
+        "https://backend-8eis.onrender.com/halloween-events"
+      );
       const data = await response.json();
       setFilteredEvents(data); // Set the fetched Halloween events
     } catch (error) {
-      console.error('Error fetching Halloween events:', error);
+      console.error("Error fetching Halloween events:", error);
     }
   };
 
@@ -26,11 +28,18 @@ function MobileEventsList({ events, onEventClick }) {
 
   return (
     <section id="mobile-events">
-      <button className="halloween-button-mobile" onClick={handleHalloweenClick}>
+      <button
+        className="halloween-button-mobile"
+        onClick={handleHalloweenClick}
+      >
         View Halloween Events
       </button>
-      {filteredEvents.map(event => (
-        <MobileEvent key={event._id} event={event} onEventClick={onEventClick} />
+      {filteredEvents.map((event) => (
+        <MobileEvent
+          key={event._id}
+          event={event}
+          onEventClick={onEventClick}
+        />
       ))}
     </section>
   );
