@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
-import '../styles/Event.css';
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import "./Event.css";
 
 // Function to format the date consistently to "MMMM D YYYY" (e.g., "October 25 2024")
 function formatDate(dateString) {
   const date = new Date(dateString);
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return date.toLocaleDateString('en-US', options);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString("en-US", options);
 }
 
 // Function to format the time (e.g., "10:00pm")
 function formatTime(time) {
-  const [hours, minutes] = time.split(':');
-  const period = hours >= 12 ? 'pm' : 'am';
+  const [hours, minutes] = time.split(":");
+  const period = hours >= 12 ? "pm" : "am";
   const formattedHours = hours % 12 || 12;
   return `${formattedHours}:${minutes}${period}`;
 }
 
 function formatTag(tag) {
   return tag
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' & ');
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" & ");
 }
 
 function Event({ event, onEventClick, isHalloweenFilterActive }) {
   const [imageSrc, setImageSrc] = useState(
-    event.image_base64 || '/path/to/local/placeholder.png'
+    event.image_base64 || "/path/to/local/placeholder.png"
   );
   const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ function Event({ event, onEventClick, isHalloweenFilterActive }) {
       const img = new Image();
       img.src = event.image_url;
       img.onload = () => setImageSrc(event.image_url);
-      img.onerror = () => setImageSrc('/path/to/local/placeholder.png');
+      img.onerror = () => setImageSrc("/path/to/local/placeholder.png");
     }
   }, [event.image_url, event.image_base64]);
 
@@ -47,19 +47,19 @@ function Event({ event, onEventClick, isHalloweenFilterActive }) {
     if (event._id) {
       navigate(`/event/${event._id}`);
     } else {
-      console.error('Event ID is undefined');
+      console.error("Event ID is undefined");
     }
   };
 
   return (
     <div className="event-container" onClick={handleClick}>
       <div className="event-image">
-        <img 
-          src={imageSrc} 
-          alt="Event" 
+        <img
+          src={imageSrc}
+          alt="Event"
           onError={(e) => {
             if (navigator.onLine) {
-              e.target.src = '/path/to/local/placeholder.png';
+              e.target.src = "/path/to/local/placeholder.png";
             }
           }}
         />
@@ -71,52 +71,67 @@ function Event({ event, onEventClick, isHalloweenFilterActive }) {
             {formatDate(event.event_date)}
           </div>
         )}
-        
+
         {/* Time (start and end time on separate line) */}
         <div className="event-time">
           {formatTime(event.start_time)}
           {event.end_time && ` to ${formatTime(event.end_time)}`}
         </div>
-        
+
         {/* Event Title */}
         <div className="event-title">{event.event_title}</div>
 
         {/* Location */}
         <div className="event-location">
-          <img src="/assets/mdi_location.png" alt="Location Logo" className="location-logo" />
+          <img
+            src="/assets/mdi_location.png"
+            alt="Location Logo"
+            className="location-logo"
+          />
           {event.location}
         </div>
 
         {/* Host Organization */}
         <div className="event-host">
-          <img src="/assets/teenyicons_user-solid.png" alt="Host Logo" className="host-logo" />
+          <img
+            src="/assets/teenyicons_user-solid.png"
+            alt="Host Logo"
+            className="host-logo"
+          />
           {event.host_organization}
         </div>
 
         {/* Registration Status */}
         <div className="event-registration">
-          <img src="/assets/Signing A Document.png" alt="Registration Logo" className="registration-logo" />
+          <img
+            src="/assets/Signing A Document.png"
+            alt="Registration Logo"
+            className="registration-logo"
+          />
           {event.registration_status}
         </div>
 
         {/* Tags */}
         <div className="event-tags">
           <img src="/assets/Tag.png" alt="Tag Icon" className="tag-logo" />
-          {event.tags && event.tags.map((tag, index) => (
-            <span key={index} className="tag">
-              {formatTag(tag)}
-            </span>
-          ))}
-          {event.faculty && event.faculty.map((faculty, index) => (
-            <span key={index} className="tag">
-              {formatTag(faculty)}
-            </span>
-          ))}
-          {event.degree_level && event.degree_level.map((degree, index) => (
-            <span key={index} className="tag">
-              {formatTag(degree)}
-            </span>
-          ))}
+          {event.tags &&
+            event.tags.map((tag, index) => (
+              <span key={index} className="tag">
+                {formatTag(tag)}
+              </span>
+            ))}
+          {event.faculty &&
+            event.faculty.map((faculty, index) => (
+              <span key={index} className="tag">
+                {formatTag(faculty)}
+              </span>
+            ))}
+          {event.degree_level &&
+            event.degree_level.map((degree, index) => (
+              <span key={index} className="tag">
+                {formatTag(degree)}
+              </span>
+            ))}
         </div>
       </div>
     </div>
