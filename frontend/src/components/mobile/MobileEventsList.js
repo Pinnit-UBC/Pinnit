@@ -5,6 +5,7 @@ import "../../styles/MobileEventsList.css";
 
 function MobileEventsList({ events, onEventClick }) {
   const [filteredEvents, setFilteredEvents] = useState(events);
+  const [isHalloweenFilterActive, setIsHalloweenFilterActive] = useState(false);
 
   const handleHalloweenClick = async () => {
     try {
@@ -13,6 +14,7 @@ function MobileEventsList({ events, onEventClick }) {
       );
       const data = await response.json();
       setFilteredEvents(data); // Set the fetched Halloween events
+      setIsHalloweenFilterActive(true); // Activate the Halloween filter
     } catch (error) {
       console.error("Error fetching Halloween events:", error);
     }
@@ -39,6 +41,7 @@ function MobileEventsList({ events, onEventClick }) {
           key={event._id}
           event={event}
           onEventClick={onEventClick}
+          isHalloweenFilterActive={isHalloweenFilterActive} // Pass down the prop
         />
       ))}
     </section>

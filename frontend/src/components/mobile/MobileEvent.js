@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "../../styles/MobileEvent.css";
 import MobileEventDrawer from "./MobileEventDrawer";
-// import dayjs from 'dayjs'; // Assuming you're using dayjs
+
+// Function to format the date consistently to "MMMM D YYYY" (e.g., "October 25 2024")
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString("en-US", options);
+}
 
 function formatTime(time) {
   if (!time) return "N/A";
@@ -19,7 +25,7 @@ function formatTag(tag) {
     .join(" & ");
 }
 
-function MobileEvent({ event, onEventClick }) {
+function MobileEvent({ event, onEventClick, isHalloweenFilterActive }) {
   const [imageSrc, setImageSrc] = useState(
     event.image_base64 || "/path/to/local/placeholder.png"
   );
@@ -40,6 +46,13 @@ function MobileEvent({ event, onEventClick }) {
     <>
       <div className="mobile-event-container" onClick={handleEventClick}>
         <div className="mobile-event-details">
+          {/* Show event date above time if Halloween filter is active */}
+          {isHalloweenFilterActive && (
+            <div className="mobile-event-date">
+              {formatDate(event.event_date)}
+            </div>
+          )}
+
           <div className="mobile-event-time">
             {event.start_time
               ? event.end_time
@@ -131,19 +144,21 @@ function MobileEvent({ event, onEventClick }) {
 
 MobileEvent.propTypes = {
   event: PropTypes.shape({
+    event_date: PropTypes.string, // Added event_date prop
     start_time: PropTypes.string,
     end_time: PropTypes.string,
     event_title: PropTypes.string,
     host_organization: PropTypes.string,
     location: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
-    faculty: PropTypes.arrayOf(PropTypes.string), // Added faculty prop
-    degree_level: PropTypes.arrayOf(PropTypes.string), // Added degree_level prop
+    faculty: PropTypes.arrayOf(PropTypes.string),
+    degree_level: PropTypes.arrayOf(PropTypes.string),
     image_url: PropTypes.string,
     image_base64: PropTypes.string,
     registration_status: PropTypes.string,
   }).isRequired,
   onEventClick: PropTypes.func.isRequired,
+  isHalloweenFilterActive: PropTypes.bool.isRequired, // Prop to check if Halloween filter is active
 };
 
 export default MobileEvent;
