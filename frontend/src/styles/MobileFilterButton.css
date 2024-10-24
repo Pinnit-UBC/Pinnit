@@ -76,3 +76,11 @@
     background-color: #5f94e6 !important;
     transition: background-color 0.3s ease;
 }
+
+/* Prevent background scrolling when applied */
+.no-scroll {
+    overflow: hidden;
+    background-color: red; /* Temporary debug style */
+  }
+  
+  
