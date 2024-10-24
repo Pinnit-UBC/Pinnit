@@ -7,7 +7,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 
 dayjs.extend(customParseFormat);
 
-function EventsList({ events }) {
+const EventsList = React.memo(({ events }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [filteredEvents, setFilteredEvents] = useState(events);
@@ -118,6 +118,6 @@ function EventsList({ events }) {
       />
     </>
   );
-}
+});
 
 export default EventsList;

@@ -15,6 +15,25 @@ function formatTime(time) {
   return `${formattedHours}:${minutes}${period}`;
 }
 
+function formatTag(tag) {
+  switch (tag) {
+    case "culture-community":
+      return "Culture & Community";
+    case "academic-professional":
+      return "Academic & Professional";
+    case "sports-fitness":
+      return "Sports & Fitness";
+    case "arts-performance":
+      return "Arts & Performance";
+    case "social":
+      return "Social";
+    case "other":
+      return "Other";
+    default:
+      return tag;
+  }
+}
+
 function MobileEventDrawer({ event, open, onClose }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const descriptionRef = useRef(null);
@@ -40,7 +59,6 @@ function MobileEventDrawer({ event, open, onClose }) {
     }
   };
 
-  // Prevent background scrolling when the drawer is open
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -171,7 +189,7 @@ function MobileEventDrawer({ event, open, onClose }) {
                   component="span"
                   className="drawer-event-tag"
                 >
-                  {tag}
+                  {formatTag(tag)} {/* Apply the formatTag function */}
                 </Typography>
               ))}
             </Box>
@@ -179,23 +197,10 @@ function MobileEventDrawer({ event, open, onClose }) {
           {event.reference_link && (
             <Box className="drawer-info-item drawer-check-it-out-container">
               <Button
-                variant="contained"
+                className="drawer-button drawer-check-it-out-button"
                 href={event.reference_link}
                 target="_blank"
                 rel="noopener noreferrer"
-                sx={{
-                  backgroundColor: "#6AA6F8",
-                  color: "white",
-                  fontWeight: "bold",
-                  width: "75%",
-                  textAlign: "center",
-                  margin: "8px auto 0",
-                  borderRadius: "10px",
-                  boxShadow: "none",
-                  "&:hover": {
-                    backgroundColor: "#5f94e6",
-                  },
-                }}
               >
                 Check it out
               </Button>
@@ -204,22 +209,8 @@ function MobileEventDrawer({ event, open, onClose }) {
           {/* Share Button */}
           <Box className="drawer-info-item drawer-check-it-out-container">
             <Button
-              variant="contained"
+              className="drawer-button drawer-share-button"
               onClick={handleShareClick}
-              sx={{
-                color: "white",
-                fontWeight: "bold",
-                backgroundColor: "#FF6347",
-                borderColor: "transparent",
-                width: "75%",
-                textAlign: "center",
-                margin: "8px auto 0",
-                borderRadius: "10px",
-                boxShadow: "none",
-                "&:hover": {
-                  backgroundColor: "#FF4500",
-                },
-              }}
             >
               Share Event
             </Button>
