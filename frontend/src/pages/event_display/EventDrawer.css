@@ -7,7 +7,7 @@
   background-color: #393838 !important;
   border-radius: 15px 0px 0px 15px !important;
   overflow: auto;
-  z-index: 1000; /* Ensure the drawer is above other content */
+  z-index: 1000;
 }
 
 .drawer-header {
@@ -45,7 +45,7 @@
 
 .drawer-event-title {
   font-weight: bold !important;
-  font-size: 28px !important;
+  font-size: 30px !important;
   text-align: center;
   color: white;
   margin-bottom: 0;
@@ -56,17 +56,20 @@
   font-size: 17px;
   font-weight: bold !important;
   text-align: center;
-  margin-bottom: 0px !important;
+  margin-bottom: -10px !important;
+  margin-top: -10px !important;
   color: white;
 }
 
 .drawer-info-container {
-  background-color: #585858;
+  background-color: #474343;
   border-radius: 15px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 5px;
+  color: white;
+  font-weight: bold; /* Make entire info container text bold */
 }
 
 .drawer-info-item {
@@ -84,9 +87,9 @@
 
 .drawer-info-text {
   font-size: 17px !important;
-  color: white;
-  font-weight: 200 !important;
+  color: White;
   line-height: 1.4 !important;
+  font-weight: bold !important;
 }
 
 .drawer-event-description {
@@ -126,9 +129,19 @@
   gap: 5px;
 }
 
-.drawer-event-details-container .drawer-section-header {
+.drawer-event-details-container { /* "The Details" Container */
   margin-bottom: -10px !important;
+  color: White;
+  font-weight: bold;
 }
+
+.drawer-section-header {
+  color: white;
+  font-weight: bold !important; /* Ensures the font is bold */
+  font-size: 18px; /* Adjust size if needed */
+  margin-bottom: 8px; /* Space below the header */
+}
+
 
 .drawer-event-details-container .drawer-event-description {
   margin-top: 0 !important;
@@ -164,8 +177,8 @@
 }
 
 .drawer-tag-icon {
-  width: 16px;
-  height: 16px;
+  width: 25px;
+  height: 30px;
   margin-right: 8px;
 }
 
@@ -180,14 +193,11 @@
   padding: 2px 8px;
   background-color: #464545;
   border-radius: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid white;
   font-size: 17px;
-  color: #ccc;
+  color: white;
 }
 
-.drawer-tag:hover {
-  background-color: #e0e0e0;
-}
 
 @media (max-width: 768px) {
   .drawer-container {
