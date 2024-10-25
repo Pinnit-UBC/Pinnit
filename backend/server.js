@@ -1,21 +1,21 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const multer = require('multer');
-const path = require('path');
-const AWS = require('aws-sdk');
-const fs = require('fs');
-const dayjs = require('dayjs');
-const axios = require('axios');
-const crypto = require('crypto'); // For generating unique file names
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const multer = require("multer");
+const path = require("path");
+const AWS = require("aws-sdk");
+const fs = require("fs");
+const dayjs = require("dayjs");
+const axios = require("axios");
+const crypto = require("crypto"); // For generating unique file names
 const { ObjectId } = mongoose.Types;
 const app = express();
 const PORT = 3001;
-require('dotenv').config();
+require("dotenv").config();
 
-console.log('GOOGLE_MAPS_API_KEY:', process.env.GOOGLE_MAPS_API_KEY);
-console.log('MONGO_URI:', process.env.MONGO_URI);
-console.log('CLOUDFRONT_DOMAIN_NAME:', process.env.CLOUDFRONT_DOMAIN_NAME);
+console.log("GOOGLE_MAPS_API_KEY:", process.env.GOOGLE_MAPS_API_KEY);
+console.log("MONGO_URI:", process.env.MONGO_URI);
+console.log("CLOUDFRONT_DOMAIN_NAME:", process.env.CLOUDFRONT_DOMAIN_NAME);
 
 // MongoDB connection URL
 const mongoURI = process.env.MONGO_URI;
@@ -23,9 +23,9 @@ const mongoURI = process.env.MONGO_URI;
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-  console.log('Connected successfully to MongoDB');
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", () => {
+  console.log("Connected successfully to MongoDB");
 });
 
 // Middleware to parse JSON bodies
@@ -40,12 +40,12 @@ const s3 = new AWS.S3({
 });
 
 const cloudFrontDomain = process.env.CLOUDFRONT_DOMAIN_NAME;
-console.log('CloudFront Domain:', cloudFrontDomain);
+console.log("CloudFront Domain:", cloudFrontDomain);
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname)); // Appends the file extension
@@ -61,13 +61,13 @@ const uploadFileToS3 = async (filePath, fileName) => {
     Bucket: process.env.S3_BUCKET_NAME,
     Key: fileName,
     Body: fileContent,
-    ContentType: 'image/jpeg', // Adjust this according to the file type
+    ContentType: "image/jpeg", // Adjust this according to the file type
   };
   await s3.upload(params).promise();
 
   // Generate CloudFront URL
   const cloudFrontUrl = `https://${cloudFrontDomain}/${fileName}`;
-  console.log('Generated CloudFront URL:', cloudFrontUrl);
+  console.log("Generated CloudFront URL:", cloudFrontUrl);
   return cloudFrontUrl;
 };
 
@@ -84,12 +84,16 @@ const checkIfImageExistsInS3 = async (fileName) => {
     console.log(`File exists in S3: ${fileName}`);
     return true; // Image exists in S3
   } catch (error) {
-    if (error.code === 'NotFound') {
+    if (error.code === "NotFound") {
       console.log(`File not found in S3: ${fileName}`);
       return false; // Image doesn't exist in S3
     } else {
-      console.error(`Error checking image in S3: ${error.code || 'Unknown error'} - ${error.message || 'No message available'}`);
-      throw new Error(`S3 Error: ${error.message || 'No message available'}`);
+      console.error(
+        `Error checking image in S3: ${error.code || "Unknown error"} - ${
+          error.message || "No message available"
+        }`
+      );
+      throw new Error(`S3 Error: ${error.message || "No message available"}`);
     }
   }
 };
@@ -98,13 +102,13 @@ const checkIfImageExistsInS3 = async (fileName) => {
 const downloadImage = async (url, filePath) => {
   const response = await axios({
     url,
-    responseType: 'stream',
+    responseType: "stream",
   });
   return new Promise((resolve, reject) => {
     const writer = fs.createWriteStream(filePath);
     response.data.pipe(writer);
-    writer.on('finish', resolve);
-    writer.on('error', reject);
+    writer.on("finish", resolve);
+    writer.on("error", reject);
   });
 };
 
@@ -133,7 +137,7 @@ eventSchema.index({ event_date: 1, start_time: 1 });
 
 // Function to get the dynamic event model based on the date
 const getEventModel = (date) => {
-  const collectionName = `Event_${date.replace(/-/g, '_')}`;
+  const collectionName = `Event_${date.replace(/-/g, "_")}`;
   return mongoose.model(collectionName, eventSchema, collectionName);
 };
 
@@ -154,11 +158,15 @@ const sponsoredEventSchema = new mongoose.Schema({
   Address: String,
 });
 
-const SponsoredEvent = mongoose.model('SponsoredEvent', sponsoredEventSchema, 'sponsored_event');
+const SponsoredEvent = mongoose.model(
+  "SponsoredEvent",
+  sponsoredEventSchema,
+  "sponsored_event"
+);
 
 // Define the keys schema and model
 const KeySchema = new mongoose.Schema({}, { strict: false });
-const Key = mongoose.model('Key', KeySchema);
+const Key = mongoose.model("Key", KeySchema);
 
 // Define the News schema and model
 const newsSchema = new mongoose.Schema({
@@ -168,10 +176,10 @@ const newsSchema = new mongoose.Schema({
   created_at: { type: Date, default: Date.now },
 });
 
-const News = mongoose.model('News', newsSchema, 'news');
+const News = mongoose.model("News", newsSchema, "news");
 
 // Route to add news
-app.post('/add-news', upload.single('image'), async (req, res) => {
+app.post("/add-news", upload.single("image"), async (req, res) => {
   try {
     const { date, title, content } = req.body;
 
@@ -184,13 +192,13 @@ app.post('/add-news', upload.single('image'), async (req, res) => {
     await newNews.save();
     res.status(201).json(newNews);
   } catch (error) {
-    console.error('Error adding news:', error);
-    res.status(500).json({ error: 'Error adding news' });
+    console.error("Error adding news:", error);
+    res.status(500).json({ error: "Error adding news" });
   }
 });
 
 // Route to verify the pass key
-app.post('/verify-key', async (req, res) => {
+app.post("/verify-key", async (req, res) => {
   const { user_id, pass_key } = req.body;
 
   try {
@@ -201,7 +209,7 @@ app.post('/verify-key', async (req, res) => {
       res.json({ valid: false });
     }
   } catch (err) {
-    console.error('Error verifying key:', err);
+    console.error("Error verifying key:", err);
     res.status(500).json({ valid: false, error: err.message });
   }
 });
@@ -225,27 +233,39 @@ const halloweenEventSchema = new mongoose.Schema({
   degree_level: [String],
 });
 
-const HalloweenEvent = mongoose.model('HalloweenEvent', halloweenEventSchema, 'Halloween');
+const HalloweenEvent = mongoose.model(
+  "HalloweenEvent",
+  halloweenEventSchema,
+  "Halloween"
+);
 
 // Route to add an event
-app.post('/add-event', upload.single('image'), async (req, res) => {
+app.post("/add-event", upload.single("image"), async (req, res) => {
   try {
-    const { event_date, latitude, longitude, tags, faculty, degree_level } = req.body;
-    let image_url = '';
+    const { event_date, latitude, longitude, tags, faculty, degree_level } =
+      req.body;
+    let image_url = "";
 
     // Check if an image was uploaded and upload to S3
     if (req.file) {
-      const cloudFrontUrl = await uploadFileToS3(req.file.path, req.file.filename);
+      const cloudFrontUrl = await uploadFileToS3(
+        req.file.path,
+        req.file.filename
+      );
       image_url = cloudFrontUrl;
       fs.unlinkSync(req.file.path); // Remove local file after uploading
     }
 
     // Parse tags, faculty, and degree_level if they are in stringified JSON format
     const parsedTags = Array.isArray(tags) ? tags : JSON.parse(tags); // Safeguard for tags
-    const parsedFaculty = Array.isArray(faculty) ? faculty : JSON.parse(faculty);
-    const parsedDegreeLevel = Array.isArray(degree_level) ? degree_level : JSON.parse(degree_level);
+    const parsedFaculty = Array.isArray(faculty)
+      ? faculty
+      : JSON.parse(faculty);
+    const parsedDegreeLevel = Array.isArray(degree_level)
+      ? degree_level
+      : JSON.parse(degree_level);
 
-    console.log('Parsed Tags:', parsedTags); // Log the parsed tags for debugging
+    console.log("Parsed Tags:", parsedTags); // Log the parsed tags for debugging
 
     // Get the model for the event collection based on the event date
     const EventModel = getEventModel(event_date);
@@ -256,16 +276,17 @@ app.post('/add-event', upload.single('image'), async (req, res) => {
       tags: parsedTags,
       faculty: parsedFaculty,
       degree_level: parsedDegreeLevel,
-      latitude: latitude && latitude !== 'null' ? parseFloat(latitude) : null,
-      longitude: longitude && longitude !== 'null' ? parseFloat(longitude) : null,
+      latitude: latitude && latitude !== "null" ? parseFloat(latitude) : null,
+      longitude:
+        longitude && longitude !== "null" ? parseFloat(longitude) : null,
     });
 
     await newEvent.save(); // Save to the event-specific collection
-    console.log('Event saved to event-specific collection:', newEvent);
+    console.log("Event saved to event-specific collection:", newEvent);
 
     // Check if the "halloween" tag is selected and save the event to the Halloween collection as well
-    if (parsedTags.includes('halloween')) {
-      console.log('Halloween tag detected, saving to Halloween collection...');
+    if (parsedTags.includes("halloween")) {
+      console.log("Halloween tag detected, saving to Halloween collection...");
 
       const halloweenEvent = new HalloweenEvent({
         event_date: newEvent.event_date,
@@ -282,26 +303,27 @@ app.post('/add-event', upload.single('image'), async (req, res) => {
         longitude: newEvent.longitude,
         tags: newEvent.tags,
         faculty: newEvent.faculty,
-        degree_level: newEvent.degree_level
+        degree_level: newEvent.degree_level,
       });
 
       await halloweenEvent.save(); // Save to the Halloween collection
-      console.log('Event also saved to Halloween collection:', halloweenEvent);
+      console.log("Event also saved to Halloween collection:", halloweenEvent);
     } else {
-      console.log('Halloween tag NOT detected, skipping Halloween collection save.');
+      console.log(
+        "Halloween tag NOT detected, skipping Halloween collection save."
+      );
     }
 
     res.status(201).json(newEvent); // Return the new event as the response
-
   } catch (err) {
-    console.error('Error adding event:', err);
-    res.status(500).json({ message: 'Error adding event', error: err.message });
+    console.error("Error adding event:", err);
+    res.status(500).json({ message: "Error adding event", error: err.message });
   }
 });
 
 // Route to get events for a specific date or the current date by default
-app.get('/events', async (req, res) => {
-  const date = req.query.date || dayjs().format('YYYY-MM-DD');
+app.get("/events", async (req, res) => {
+  const date = req.query.date || dayjs().format("YYYY-MM-DD");
 
   try {
     console.log(`Fetching events for date: ${date}`);
@@ -314,13 +336,15 @@ app.get('/events', async (req, res) => {
     res.json(events);
   } catch (err) {
     console.error(`Error fetching events for ${date}:`, err);
-    res.status(500).json({ message: 'Error fetching events', error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching events", error: err.message });
   }
 });
 
 // Route to get sponsored events for a specific date or the current date by default
-app.get('/sponsored_event', async (req, res) => {
-  const date = req.query.date || dayjs().format('YYYY-MM-DD');
+app.get("/sponsored_event", async (req, res) => {
+  const date = req.query.date || dayjs().format("YYYY-MM-DD");
 
   try {
     console.log(`Received request for sponsored event on date: ${date}`);
@@ -329,7 +353,9 @@ app.get('/sponsored_event', async (req, res) => {
     if (sponsoredEvent) {
       console.log(`Found sponsored event: ${JSON.stringify(sponsoredEvent)}`);
       if (sponsoredEvent.image_url) {
-        sponsoredEvent.image_url = getCloudFrontUrl(path.basename(sponsoredEvent.image_url));
+        sponsoredEvent.image_url = getCloudFrontUrl(
+          path.basename(sponsoredEvent.image_url)
+        );
       }
     } else {
       console.log(`No sponsored event found for this date.`);
@@ -338,16 +364,18 @@ app.get('/sponsored_event', async (req, res) => {
     res.json(sponsoredEvent);
   } catch (err) {
     console.error(`Error fetching sponsored event for ${date}:`, err);
-    res.status(500).json({ message: 'Error fetching sponsored event', error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching sponsored event", error: err.message });
   }
 });
 
 // Route to handle subscription
-app.post('/subscribe', async (req, res) => {
+app.post("/subscribe", async (req, res) => {
   const { name, email } = req.body;
-  const listId = 'db921483ac'; // Replace with your Mailchimp list ID
-  const apiKey = 'de8b05dbb0058b6d83e41325add7cf3e-us22';
-  const serverPrefix = apiKey.split('-')[1];
+  const listId = "db921483ac"; // Replace with your Mailchimp list ID
+  const apiKey = "de8b05dbb0058b6d83e41325add7cf3e-us22";
+  const serverPrefix = apiKey.split("-")[1];
 
   const url = `https://${serverPrefix}.api.mailchimp.com/3.0/lists/${listId}/members`;
 
@@ -356,61 +384,64 @@ app.post('/subscribe', async (req, res) => {
       url,
       {
         email_address: email,
-        status: 'subscribed',
+        status: "subscribed",
         merge_fields: {
-          FNAME: name.split(' ')[0],
-          LNAME: name.split(' ').slice(1).join(' '),
+          FNAME: name.split(" ")[0],
+          LNAME: name.split(" ").slice(1).join(" "),
         },
       },
       {
         headers: {
           Authorization: `apikey ${apiKey}`,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }
     );
 
     if (response.status === 200 || response.status === 201) {
-      res.status(200).json({ message: 'Subscribed successfully!' });
+      res.status(200).json({ message: "Subscribed successfully!" });
     } else {
-      res.status(response.status).json({ message: 'Failed to subscribe.' });
+      res.status(response.status).json({ message: "Failed to subscribe." });
     }
   } catch (error) {
-    console.error('Error subscribing:', error.response ? error.response.data : error.message);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error(
+      "Error subscribing:",
+      error.response ? error.response.data : error.message
+    );
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 
 // Proxy route to fetch image
-app.get('/proxy-image', async (req, res) => {
+app.get("/proxy-image", async (req, res) => {
   const imageUrl = req.query.url;
   try {
     const response = await axios({
       url: imageUrl,
-      responseType: 'arraybuffer',
+      responseType: "arraybuffer",
     });
-    const buffer = Buffer.from(response.data, 'binary');
-    res.setHeader('Content-Type', response.headers['content-type']);
+    const buffer = Buffer.from(response.data, "binary");
+    res.setHeader("Content-Type", response.headers["content-type"]);
     res.send(buffer);
   } catch (error) {
-    console.error('Error fetching image:', error);
-    res.status(500).send('Error fetching image');
+    console.error("Error fetching image:", error);
+    res.status(500).send("Error fetching image");
   }
 });
 
 // Route to get news
-app.get('/news', async (req, res) => {
+app.get("/news", async (req, res) => {
   try {
     const newsItems = await News.find().sort({ created_at: -1 }); // Sort by most recent
     res.json(newsItems);
   } catch (error) {
-    console.error('Error fetching news:', error);
-    res.status(500).json({ error: 'Error fetching news' });
+    console.error("Error fetching news:", error);
+    res.status(500).json({ error: "Error fetching news" });
   }
 });
 
 // Serve static files from the uploads directory
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
 // Faculty and Academic Schema and Route
 const facultyAcademicSchema = new mongoose.Schema({
@@ -421,10 +452,14 @@ const facultyAcademicSchema = new mongoose.Schema({
   points: String,
 });
 
-const FacultyAcademic = mongoose.model('FacultyAcademic', facultyAcademicSchema, 'faculty-academic');
+const FacultyAcademic = mongoose.model(
+  "FacultyAcademic",
+  facultyAcademicSchema,
+  "faculty-academic"
+);
 
 // Route to get clubs and organizations based on faculty
-app.get('/clubs-organizations', async (req, res) => {
+app.get("/clubs-organizations", async (req, res) => {
   const faculty = req.query.faculty; // Get faculty from query params
 
   try {
@@ -432,7 +467,9 @@ app.get('/clubs-organizations', async (req, res) => {
 
     if (faculty) {
       // Query Faculty & Academic collection by faculty
-      clubsOrganizations = await FacultyAcademic.find({ faculty }).sort({ title: 1 });
+      clubsOrganizations = await FacultyAcademic.find({ faculty }).sort({
+        title: 1,
+      });
     } else {
       // If no faculty is specified, return all clubs from the default collection
       clubsOrganizations = await FacultyAcademic.find().sort({ title: 1 });
@@ -441,15 +478,18 @@ app.get('/clubs-organizations', async (req, res) => {
     // Download and upload Instagram images to S3/CloudFront
     for (const club of clubsOrganizations) {
       const imageUrl = club.image_link;
-      if (imageUrl.includes('instagram')) {
+      if (imageUrl.includes("instagram")) {
         // Generate a unique file name for the image
-        const fileName = `${club._id}-${crypto.createHash('md5').update(imageUrl).digest('hex')}.jpg`;
+        const fileName = `${club._id}-${crypto
+          .createHash("md5")
+          .update(imageUrl)
+          .digest("hex")}.jpg`;
 
         // Check if the image already exists in S3
         const existsInS3 = await checkIfImageExistsInS3(fileName);
 
         if (!existsInS3) {
-          const imagePath = path.join(__dirname, 'uploads', fileName);
+          const imagePath = path.join(__dirname, "uploads", fileName);
 
           // Download the image from Instagram
           await downloadImage(imageUrl, imagePath);
@@ -471,13 +511,13 @@ app.get('/clubs-organizations', async (req, res) => {
 
     res.json(clubsOrganizations);
   } catch (error) {
-    console.error('Error fetching clubs/organizations:', error);
-    res.status(500).json({ error: 'Error fetching clubs/organizations' });
+    console.error("Error fetching clubs/organizations:", error);
+    res.status(500).json({ error: "Error fetching clubs/organizations" });
   }
 });
 
 // Route to get a specific event by ID
-app.get('/event/:eventId', async (req, res) => {
+app.get("/event/:eventId", async (req, res) => {
   const { eventId } = req.params;
 
   try {
@@ -485,8 +525,10 @@ app.get('/event/:eventId', async (req, res) => {
     const objectId = new ObjectId(eventId);
 
     // Log the date and ObjectId for debugging
-    const date = dayjs().format('YYYY-MM-DD');
-    console.log(`Fetching event with ID: ${eventId} as ObjectId: ${objectId} for date: ${date}`);
+    const date = dayjs().format("YYYY-MM-DD");
+    console.log(
+      `Fetching event with ID: ${eventId} as ObjectId: ${objectId} for date: ${date}`
+    );
 
     const EventModel = getEventModel(date);
 
@@ -495,33 +537,33 @@ app.get('/event/:eventId', async (req, res) => {
     console.log(`MongoDB Query Result:`, event);
 
     if (!event) {
-      return res.status(404).json({ message: 'Event not found' });
+      return res.status(404).json({ message: "Event not found" });
     }
 
     res.json(event);
   } catch (err) {
     console.error(`Error fetching event with ID ${eventId}:`, err);
-    res.status(500).json({ message: 'Error fetching event', error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching event", error: err.message });
   }
 });
 
 // Route to get Halloween events sorted by date and time, and filter out past events
-app.get('/halloween-events', async (req, res) => {
-  const today = dayjs().startOf('day'); // Get today's date at midnight
+app.get("/halloween-events", async (req, res) => {
+  const today = dayjs().startOf("day"); // Get today's date at midnight
 
   try {
     const HalloweenEvents = await HalloweenEvent.find({
-      event_date: { $gte: today.format('YYYY-MM-DD') }, // Filter for future events
+      event_date: { $gte: today.format("YYYY-MM-DD") }, // Filter for future events
     }).sort({ event_date: 1, start_time: 1 }); // Sort by date and time
 
     res.json(HalloweenEvents);
   } catch (err) {
-    console.error('Error fetching Halloween events:', err);
-    res.status(500).json({ error: 'Error fetching Halloween events' });
+    console.error("Error fetching Halloween events:", err);
+    res.status(500).json({ error: "Error fetching Halloween events" });
   }
 });
-
-
 
 // Start the server
 app.listen(PORT, () => {
