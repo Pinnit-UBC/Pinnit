@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../styles/Timeline.css';
 import dayjs from 'dayjs';
 
-const Timeline = ({ selectedDate, onDateChange }) => {
+const Timeline = React.memo(({ selectedDate, onDateChange }) => {
   const todayDate = dayjs().format('YYYY-MM-DD');
   const todayDayOfWeek = dayjs().format('dddd');
   const selectedDayOfWeek = dayjs(selectedDate).format('dddd');
@@ -43,7 +43,7 @@ const Timeline = ({ selectedDate, onDateChange }) => {
       <div className="timeline-arrow" style={{ marginLeft: 'auto' }}></div>
     </div>
   );
-};
+});
 
 Timeline.propTypes = {
   selectedDate: PropTypes.string.isRequired,

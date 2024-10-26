@@ -31,13 +31,12 @@ const MessageScreen = () => {
     <div className="message-overlay">
       <div className="message-box">
         <h2>Welcome to Pinnit UBC!</h2>
-        <p>Check out everything happening on campus!</p>
-        <h3 className="update-notes">September 14 update notes</h3>
-        <p>Thanks for a great first week! We've heard your feedback and here’s the new update!</p>
+        <h3 className="update-notes">October 20 Update notes</h3>
+        <p> Thank you for all your support and feedback! We're excited to be working on some exciting updates behind the scenes. </p>
+        <p>Follow us on Instagram @pinnit_ubc to stay updated on what's coming next!</p>
+        <p></p>
         <ul>
-          <li><strong>Added Master List</strong> with all club and faculty accounts</li>
-          <li><strong>Added Feedback Form</strong> for comments & suggestions!</li>
-          <li><strong>UI changes</strong> to mobile viewing</li>
+          <li><strong>New Halloween Button</strong> to see all halloween activities</li>
           <li><strong>Bug fix</strong> to mobile viewing</li>
         </ul>
         <div className="checkbox-container">

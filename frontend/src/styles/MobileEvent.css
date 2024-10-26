@@ -28,6 +28,13 @@
 
 .mobile-event-time {
   font-weight: bold; /* Bold the start and end time */
+  font-size: 18px;
+}
+
+.mobile-event-date {
+  font-weight: bold; /* Bold the event date */
+  font-size: large; /* You can adjust the size as needed */
+  margin-bottom: 5px;
 }
 
 .mobile-event-location,
