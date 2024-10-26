@@ -5,16 +5,16 @@
   flex-direction: column;
   gap: 20px;
   height: 100%;
-  background-color: #393838 !important; /* Drawer background color */
-  border-radius: 15px 0px 0px 15px; /* Rounded top-left and bottom-left corners */
-  overflow: auto; /* Ensure content is scrollable */
-  border: 2px solid #464545 !important; /* Add border and override any default styles */
+  background-color: #393838 !important;
+  border-radius: 15px 0px 0px 15px;
+  overflow: auto;
+  border: 2px solid #464545 !important;
 }
 
 /* Override any border on the drawer paper */
 .MuiDrawer-paper {
   border: none !important;
-  box-shadow: none !important; /* Remove any box-shadow that might create a border-like effect */
+  box-shadow: none !important;
 }
 
 /* Other existing styles */
@@ -23,7 +23,7 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-  margin-bottom: 60px; /* Add margin to create space below the header */
+  margin-bottom: 0px;
 }
 
 .drawer-close-button {
@@ -31,43 +31,43 @@
   gap: 10px;
   cursor: pointer;
   position: absolute;
-  top: 0px; /* Adjusted to move the button down */
-  left: 0px; /* Move the button to the right */
+  top: 0px;
+  left: 0px;
   color: white;
-  background: none; /* Remove button background */
+  background: none;
   border: none;
-  font-size: 40px; /* Increase the font size of the "X" */
-  z-index: 1001; /* Ensure it's on top of other elements */
+  font-size: 40px;
+  z-index: 1001;
   left: -5px !important;
 }
 
 .drawer-event-title {
   font-weight: bold !important;
-  font-size: 28px !important; /* Font size for event title */
-  text-align: center; /* Centered text */
+  font-size: 28px !important;
+  text-align: center;
   color: white;
-  margin-top: 40px; /* Added more margin to push the title down */
-  margin-bottom: 20px; /* Adjusted margin to control spacing below the title */
-  line-height: 1.2 !important; /* Spacing between Title lines */
+  margin-top: 40px;
+  margin-bottom: 0px;
+  line-height: 1.2 !important;
 }
 
 .drawer-event-time {
-  font-size: 17px; /* Font size for event time */
+  font-size: 17px;
   font-weight: bold !important;
-  text-align: center; /* Centered text */
-  margin-bottom: 10px !important; /* Added margin below the time */
+  text-align: center;
+  margin-bottom: -10px !important;
   color: white;
 }
 
 .drawer-info-container {
-  background-color: #474343; /* Updated container background color */
-  border-radius: 15px; /* Rounded corners */
-  padding: 16px; /* Padding inside the container */
+  background-color: #474343;
+  border-radius: 15px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 5px; /* Reduced gap between info items */
+  gap: 5px;
   width: 90%;
-  margin: 0 auto; /* Center the container horizontally */
+  margin: 0 auto;
 }
 
 .drawer-info-item {
@@ -76,46 +76,60 @@
   gap: 8px;
 }
 
-.drawer-info-icon {
-  width: 20px;
-  height: 21px;
-}
-
-.drawer-location-icon {
-  width: 20px; /* Adjust width for location icon */
-  height: 23px; /* Adjust height for location icon */
-}
-
-.drawer-host-icon {
-  width: 19px; /* Adjust width for host icon */
-  height: 22px; /* Adjust height for host icon */
-}
-
-.drawer-registration-icon {
-  width: 20px; /* Adjust width for registration icon */
-  height: 22px; /* Adjust height for registration icon */
-}
-
 .drawer-info-text {
-  font-size: 17px !important; /* Font size for info text */
+  font-size: 20px !important;
   color: white;
   font-weight: 200 !important;
-  line-height: 1.4 !important; /* Spacing between lines */
+  line-height: 1.4 !important;
 }
 
 .drawer-event-tag {
-  margin-top: 10px; /* Adjust to position below the registration icon */
+  margin-top: 10px;
   background-color: transparent;
   border-radius: 10px;
   padding: 4px;
-  font-size: 12px; /* Font size for tags */
-  color: #C5C5C5; /* Text color for tags */
-  border: 2px solid #C5C5C5; /* Set the border color to #C5C5C5 */
+  font-size: 12px;
+  color: white;
+  border: 2px solid white;
+  font-weight: bold;
 }
 
+/* Common button styling for both buttons */
+.drawer-button {
+  color: white;
+  font-weight: bold;
+  width: 75%;
+  text-align: center;
+  margin: 8px auto 0;
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 18px;
+}
+
+/* Specific styling for the "Check it out" button */
+.drawer-check-it-out-button {
+  background-color: #6AA6F8;
+}
+
+.drawer-check-it-out-button:hover {
+  background-color: #5f94e6;
+}
+
+/* Specific styling for the "Share Event" button */
+.drawer-share-button {
+  background-color: #FF6347; /* bugged share button styling, this is the control*/
+  height: 40px !important;
+  width: 75% !important;
+}
+
+.drawer-share-button:hover {
+  background-color: #FF4500;
+}
+
+/* Event description */
 .drawer-event-description {
   margin-top: -10px !important;
-  font-size: 16.5px !important; /* Font size for description */
+  font-size: 16.5px !important;
   color: white;
   display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -128,7 +142,7 @@
 }
 
 .drawer-see-more {
-  color: #6AA6F8; /* Color for the see more/see less text */
+  color: #6AA6F8;
   cursor: pointer;
 }
 
@@ -146,50 +160,38 @@
 
 .drawer-reference-link {
   margin-top: 16px;
-  font-size: 16px; /* Font size for the link */
-  color: #1e90ff; /* Color for the link */
-  text-align: center; /* Center the link */
+  font-size: 16px;
+  color: #1e90ff;
+  text-align: center;
 }
 
-.drawer-reference-link a {
-  color: inherit; /* Use the same color as the parent */
-  text-decoration: none; /* Remove underline */
-}
-
-.drawer-reference-link a:hover {
-  text-decoration: underline; /* Underline on hover */
-}
-
+/* Ensure headers "The Event" and "The Details" are bold */
 .drawer-section-header {
-  font-weight: bold !important;
+  font-weight: bolder !important;
   color: white;
-  margin-bottom: 0px !important; /* Add more spacing below the header */
-  font-size: 15px !important; /* Reduced font size */
+  font-size: 23px !important;
+  margin-bottom: -5px;
+  margin-top: -5px;
 }
 
 .drawer-section-divider {
   border: 0;
-  height: 2px; /* Increase the height for better visibility */
+  height: 2px;
   background: white;
-  margin: 4px 0 8px; /* Adjust the margins for better placement */
-  width: 80%; /* Adjust the width to not cross the entire drawer */
-  margin-left: 0; /* Align to the left */
-}
-
-.drawer-about-us-description {
-  color: white;
-  margin-top: 8px;
+  margin: 4px 0 8px;
+  width: 80%;
+  margin-left: 0;
 }
 
 .drawer-event-details-container {
-  background-color: #474343; /* Updated container background color */
-  border-radius: 15px; /* Rounded corners */
-  padding: 16px; /* Padding inside the container */
+  background-color: #474343;
+  border-radius: 15px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 5px; /* Reduced gap between info items */
+  gap: 5px;
   width: 90%;
-  margin: 0 auto; /* Center the container horizontally */
+  margin: 0 auto;
 }
 
 .drawer-map-container {
@@ -198,10 +200,4 @@
   border-radius: 15px;
   overflow: hidden;
   margin-bottom: 10px;
-}
-
-/* Prevent background scrolling when applied */
-.no-scroll {
-  overflow: hidden;
-  background-color: red; /* Temporary debug style */
 }

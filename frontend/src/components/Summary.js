@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Divider from '@mui/material/Divider';
 import '../styles/Summary.css';
 
-function Summary({ eventCount, sponsoredEvent, onSponsoredEventClick }) {
+const Summary = React.memo(({ eventCount, sponsoredEvent, onSponsoredEventClick }) => {
   return (
     <section id="summary">
       <div className="summary-container">
@@ -27,7 +27,7 @@ function Summary({ eventCount, sponsoredEvent, onSponsoredEventClick }) {
       </div>
     </section>
   );
-}
+});
 
 Summary.propTypes = {
   eventCount: PropTypes.number.isRequired,
