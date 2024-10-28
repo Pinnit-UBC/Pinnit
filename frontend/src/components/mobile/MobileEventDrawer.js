@@ -198,7 +198,7 @@ function MobileEventDrawer({ event, open, onClose }) {
             <Box className="drawer-info-item drawer-check-it-out-container">
               <Button
                 className="drawer-button drawer-check-it-out-button"
-                href={event.reference_link}
+                href={event.reference_link.startsWith("http") ? event.reference_link : `https://${event.reference_link}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
