@@ -10,8 +10,8 @@ function Filter({ onFilterChange, onHalloweenClick }) {
   const tagOptions = [
     "Culture & Community",
     "Academic & Professional",
-    "Sports & Fitness",
-    "Arts & Performance",
+    "Sport & Fitness",
+    "Art & Performance",
     "Social",
     "Health & Wellness",
     "Varsity Sports",
@@ -38,7 +38,7 @@ function Filter({ onFilterChange, onHalloweenClick }) {
   const formatTagForFiltering = (tag) => tag.toLowerCase().replace(/ & /g, "-");
 
   const handleTagChange = (tag) => {
-    const formattedTag = formatTagForFiltering(tag);
+    const formattedTag = tag;
     const updatedTags = selectedTags.includes(formattedTag)
       ? selectedTags.filter((t) => t !== formattedTag)
       : [...selectedTags, formattedTag];

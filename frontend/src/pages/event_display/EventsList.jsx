@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Event from "./Event";
-import EventDrawer from "./EventDrawer";
 import Filter from "../../components/ui/filter/Filter";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
 dayjs.extend(customParseFormat);
 
-const EventsList = React.memo(({ events }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+const EventsList = ({ events }) => {
   const [filteredEvents, setFilteredEvents] = useState(events);
   const [isHalloweenFilterActive, setIsHalloweenFilterActive] = useState(false);
-
-  const handleEventClick = (event) => {
-    setSelectedEvent(event);
-    setDrawerOpen(true);
-  };
 
   const handleFilterChange = (
     selectedTags,
@@ -35,6 +27,9 @@ const EventsList = React.memo(({ events }) => {
         event.degree_level.some((degree) =>
           selectedDegreeLevel.includes(degree)
         );
+      console.log("FIRST");
+      console.log(selectedTags);
+      console.log(event.tags);
       return matchTags && matchFaculty && matchDegreeLevel;
     });
 
@@ -106,18 +101,12 @@ const EventsList = React.memo(({ events }) => {
           <Event
             key={event._id}
             event={event}
-            onEventClick={handleEventClick}
             isHalloweenFilterActive={isHalloweenFilterActive}
           />
         ))}
       </section>
-      <EventDrawer
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        event={selectedEvent}
-      />
     </>
   );
-});
+};
 
 export default EventsList;

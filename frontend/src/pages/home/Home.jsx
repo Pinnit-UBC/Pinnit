@@ -1,4 +1,4 @@
-import { React, useState, lazy, useEffect, Suspense } from "react";
+import { React, useState, lazy, useEffect, Suspense, useContext } from "react";
 import MessageScreen from "../../components/MessageScreen";
 import EventsList from "../event_display/EventsList"; // Kept as it is, no lazy loading required for this
 import Summary from "../../components/Summary";
@@ -12,13 +12,8 @@ import MobileDatePickerButton from "../../components/mobile/MobileDatePickerButt
 import MenuDrawer from "../../components/ui/menu_drawer/MenuDrawer";
 import "../../App.css";
 
-import {
-  cacheEvents,
-  loadCachedEvents,
-  cacheSponsoredEvent,
-  loadCachedSponsoredEvent,
-} from "../../cache";
 import GoogleMapsScriptLoader from "../../hooks/GoogleMapsScriptLoader";
+import { EventContext } from "../../providers/EventsProvider";
 
 // Lazy-load heavy components
 const MapComponent = lazy(() => import("../../components/Map"));
@@ -29,9 +24,6 @@ const MobileEventsList = lazy(() =>
 const HomePage = () => {
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(
-    dayjs().format("YYYY-MM-DD")
-  );
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [sponsoredEvent, setSponsoredEvent] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -39,71 +31,14 @@ const HomePage = () => {
   const isMobile = useMediaQuery("(max-width: 600px)");
   const navigate = useNavigate();
   const location = useLocation();
+  const eventData = useContext(EventContext);
+  const selectedDate = eventData.selectedDate;
+  const setSelectedDate = eventData.setSelectedDate;
 
   // Formats the selected date for display
   const formatSelectedDate = () => {
     return dayjs(selectedDate).format("dddd, MMMM D");
   };
-
-  // Fetches events from the backend or cache when the selected date changes
-  useEffect(() => {
-    async function fetchEvents(date) {
-      if (navigator.onLine) {
-        try {
-          const response = await fetch(
-            `https://backend-8eis.onrender.com/events?date=${date}`
-          );
-          const data = await response.json();
-          if (Array.isArray(data)) {
-            setEvents(data);
-            setFilteredEvents(data);
-            await cacheEvents(date, data);
-          } else {
-            console.error("Error: Data is not an array");
-          }
-        } catch (error) {
-          console.error("Error fetching events:", error);
-        }
-      } else {
-        const cachedData = await loadCachedEvents(date);
-        if (cachedData.length > 0) {
-          setEvents(cachedData);
-          setFilteredEvents(cachedData);
-        } else {
-          console.log("No cached events found for this date.");
-          setEvents([]);
-          setFilteredEvents([]);
-        }
-      }
-    }
-
-    async function fetchSponsoredEvent(date) {
-      if (navigator.onLine) {
-        try {
-          const response = await fetch(
-            `https://backend-8eis.onrender.com/sponsored_event?date=${date}`
-          );
-          const data = await response.json();
-          setSponsoredEvent(data);
-          await cacheSponsoredEvent(date, data);
-        } catch (error) {
-          console.error("Error fetching sponsored event:", error);
-          setSponsoredEvent(null);
-        }
-      } else {
-        const cachedData = await loadCachedSponsoredEvent(date);
-        if (cachedData) {
-          setSponsoredEvent(cachedData);
-        } else {
-          console.log("No cached sponsored event found for this date.");
-          setSponsoredEvent(null);
-        }
-      }
-    }
-
-    fetchEvents(selectedDate);
-    fetchSponsoredEvent(selectedDate);
-  }, [selectedDate]);
 
   useEffect(() => {
     const pathParts = location.pathname.split("/");
@@ -163,37 +98,6 @@ const HomePage = () => {
 
   const normalizeTag = (tag) => tag.toLowerCase().replace(/ & /g, "-");
 
-  const handleFilterChange = (
-    selectedTags,
-    selectedFaculty,
-    selectedDegreeLevel
-  ) => {
-    const normalizedTags = selectedTags.map(normalizeTag);
-    const normalizedFaculty = selectedFaculty.map(normalizeTag);
-    const normalizedDegreeLevel = selectedDegreeLevel.map(normalizeTag);
-
-    const filtered = events.filter((event) => {
-      const eventTags = (event.tags || []).map(normalizeTag);
-      const eventFaculty = (event.faculty || []).map(normalizeTag);
-      const eventDegreeLevel = (event.degree_level || []).map(normalizeTag);
-
-      const matchTags =
-        normalizedTags.length === 0 ||
-        eventTags.some((tag) => normalizedTags.includes(tag));
-      const matchFaculty =
-        normalizedFaculty.length === 0 ||
-        eventFaculty.some((fac) => normalizedFaculty.includes(fac));
-      const matchDegreeLevel =
-        normalizedDegreeLevel.length === 0 ||
-        eventDegreeLevel.some((degree) =>
-          normalizedDegreeLevel.includes(degree)
-        );
-      return matchTags && matchFaculty && matchDegreeLevel;
-    });
-
-    setFilteredEvents(filtered);
-  };
-
   const handlePopularEventsClick = async () => {
     if (isPopularEventsActive) {
       setFilteredEvents(events);
@@ -222,7 +126,7 @@ const HomePage = () => {
             <div className="mobile-header">
               <div className="mobile-button-container">
                 <MobileFilterButton
-                  onFilterChange={handleFilterChange}
+                  onFilterChange={{}}
                   onPopularEventsClick={handlePopularEventsClick}
                 />
                 <MobileTimeline
@@ -248,11 +152,8 @@ const HomePage = () => {
           ) : (
             <>
               <div className="left-content">
-                <h2>{formatSelectedDate()}</h2>
-                <EventsList
-                  events={filteredEvents}
-                  onEventClick={handleEventClick}
-                />
+                <h2 className="text-xl">{formatSelectedDate()}</h2>
+                <EventsList events={eventData.events} />
               </div>
               <div className="right-content">
                 <div

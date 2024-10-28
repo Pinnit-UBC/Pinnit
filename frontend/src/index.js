@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom"; // Import BrowserRou
 import { ThemeProvider, createTheme } from "@mui/material/styles"; // Import MUI's ThemeProvider and createTheme for styling
 import ErrorBoundary from "./ErrorBoundary"; // Import custom error boundary component for catching errors
 import Header from "./components/Header";
+import { EventProvider } from "./providers/EventsProvider";
 
 // Create a custom MUI theme with specific colors and typography
 const theme = createTheme({
@@ -35,13 +36,15 @@ const theme = createTheme({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Router>
-        <ErrorBoundary>
-          <Header />
-          <App />
-        </ErrorBoundary>
-      </Router>
-    </ThemeProvider>
+    <EventProvider>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <ErrorBoundary>
+            <Header />
+            <App />
+          </ErrorBoundary>
+        </Router>
+      </ThemeProvider>
+    </EventProvider>
   </React.StrictMode>
 );

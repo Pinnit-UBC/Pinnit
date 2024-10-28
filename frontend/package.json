@@ -38,6 +38,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
     "react-show-more-text": "^1.7.1",
+    "shadcn": "^2.1.2",
     "simple-sharer": "^4.0.0",
     "web-vitals": "^4.0.1",
     "xlsx": "^0.18.5"

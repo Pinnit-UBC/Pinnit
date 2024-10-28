@@ -13,7 +13,8 @@
   padding-top: 20px;
   padding-bottom: 20px;
   cursor: pointer;
-  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.3s ease;
+  transition: transform 0.1s ease, box-shadow 0.1s ease,
+    background-color 0.3s ease;
 }
 
 .event-container:hover {
@@ -29,10 +30,15 @@
   flex-grow: 1;
 }
 
-.event-time, .event-title, .event-host, .event-location, .event-registration, .event-tags {
+.event-time,
+.event-title,
+.event-host,
+.event-location,
+.event-registration,
+.event-tags {
   font-size: 18px;
   margin-bottom: 5px;
-  color: #B9B9B9;
+  color: #b9b9b9;
 }
 
 .event-time {
@@ -45,10 +51,13 @@
   font-weight: bold;
   font-size: 28px;
   overflow-wrap: break-word;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
-.event-host, .event-location, .event-registration, .event-tags {
+.event-host,
+.event-location,
+.event-registration,
+.event-tags {
   display: flex;
   align-items: center;
   margin-bottom: 0px;
@@ -74,14 +83,16 @@
 }
 
 .event-image img {
-  width: 220px;
-  height: 220px;
+  max-width: 220px;
+  max-height: 220px;
   object-fit: cover;
   border-radius: 15px;
   margin-right: 10px;
 }
 
-.host-logo, .location-logo, .registration-logo {
+.host-logo,
+.location-logo,
+.registration-logo {
   width: 16px;
   height: 20px;
   margin-right: 10px;
@@ -89,7 +100,9 @@
   margin-bottom: 7px;
 }
 
-.event-host .host-logo, .event-location .location-logo, .event-registration .registration-logo {
+.event-host .host-logo,
+.event-location .location-logo,
+.event-registration .registration-logo {
   margin-right: 10px !important;
 }
 
@@ -126,6 +139,6 @@
 .halloween-event-date {
   font-weight: bold;
   font-size: 20px;
-  color: #FFFFFF; /* Keep the date color consistent */
+  color: #ffffff; /* Keep the date color consistent */
   margin-bottom: 10px;
 }
