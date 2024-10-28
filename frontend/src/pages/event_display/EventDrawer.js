@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import DrawerMap from "../../components/DrawerMap";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "./EventDrawer.css";
 
 function formatTime(time) {
@@ -35,7 +35,7 @@ function formatTag(tag) {
 function EventDrawer({ event, open, onClose }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const descriptionRef = useRef(null);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const handleToggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -62,7 +62,7 @@ function EventDrawer({ event, open, onClose }) {
 
   const handleClose = () => {
     onClose();
-    navigate("/");
+    //navigate("/");
   };
 
   if (!event) {
@@ -194,7 +194,7 @@ function EventDrawer({ event, open, onClose }) {
             >
               <Button
                 variant="contained"
-                href={event.reference_link}
+                href={event.reference_link.startsWith("http") ? event.reference_link : `https://${event.reference_link}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
@@ -212,6 +212,7 @@ function EventDrawer({ event, open, onClose }) {
               </Button>
             </Box>
           )}
+
           {/* Move the Share Event button below the Check it out button */}
           <Box
             className="drawer-info-item"
