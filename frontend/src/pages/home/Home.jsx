@@ -1,6 +1,6 @@
 import { React, useState, lazy, useEffect, Suspense } from "react";
 import MessageScreen from "../../components/MessageScreen";
-import EventsList from "../../pages/event_display/EventsList"; // Kept as it is, no lazy loading required for this
+import EventsList from "../event_display/EventsList"; // Kept as it is, no lazy loading required for this
 import Summary from "../../components/Summary";
 import dayjs from "dayjs";
 import useMediaQuery from "@mui/material/useMediaQuery";

@@ -34,21 +34,7 @@ function Header() {
           <img src={halloweenLogo} alt="Pinnit Logo" className="header-logo" />
         </div>
       </div>
-      <div className="subscribe-banner">
-        <img
-          src={subscribeIcon}
-          alt="Subscribe Icon"
-          className="subscribe-icon"
-          onClick={handleSubscribeClick} // Apply onClick to the icon
-        />
-        <span
-          className="subscribe-text"
-          style={{ textDecoration: "underline", cursor: "pointer" }}
-          onClick={handleSubscribeClick} // Apply onClick to the text
-        >
-          Click here to subscribe to the UBC events newsletter
-        </span>
-      </div>
+      <div className="subscribe-banner"></div>
       <Button
         variant="contained"
         className="add-event-button"
