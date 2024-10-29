@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import "./Event.css";
 
+
 // Function to format the date consistently to "MMMM D YYYY" (e.g., "October 25 2024")
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -11,13 +12,46 @@ function formatDate(dateString) {
 }
 
 // Function to format the time (e.g., "10:00pm")
-function formatTime(time) {
-  const [hours, minutes] = time.split(":");
-  const period = hours >= 12 ? "pm" : "am";
-  const formattedHours = hours % 12 || 12;
-  return `${formattedHours}:${minutes}${period}`;
+function formatTime(time, is_end_time, eventDate) {
+  if (!time) {
+    return ''; // Handle invalid time
+  }
+  const currenttime = new Date();
+  
+  // Get today's date (without time)
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set to midnight
+  
+  // Create a Date object from the event date for comparison
+  const eventDateObject = new Date(eventDate);
+  eventDateObject.setHours(0, 0, 0, 0); // Set to midnight
+
+  // Check if the event date is today
+  if (eventDateObject.getTime() === today.getTime()) {
+    const [hours, minutes] = time.split(":");
+    const now = currenttime.getHours() * 60 + currenttime.getMinutes();
+    const timeminutes = Number(hours) * 60 + Number(minutes);
+    
+    if (now > timeminutes && is_end_time) {
+      return `ended`;
+    }
+    if (now > timeminutes && !is_end_time) {
+      return `from now`;
+    }
+    
+    const period = hours >= 12 ? "pm" : "am";
+    const formattedHours = hours % 12 || 12;
+    return `${formattedHours}:${minutes}${period}`;
+  } else {
+    // If not today, just return the time without modification
+    const [hours, minutes] = time.split(":");
+    const period = hours >= 12 ? "pm" : "am";
+    const formattedHours = hours % 12 || 12;
+    return `${formattedHours}:${minutes}${period}`;
+  }
 }
 
+// Function to format tags consistently (e.g., "example-tag" to "Example & Tag")
 function formatTag(tag) {
   return tag
     .split("-")
@@ -26,19 +60,29 @@ function formatTag(tag) {
 }
 
 function Event({ event, onEventClick, isHalloweenFilterActive }) {
+  const [eventEnded, setEventEnded] = useState(false);
   const [imageSrc, setImageSrc] = useState(
-    event.image_base64 || "/path/to/local/placeholder.png"
+    event.image_base64 || "event"
   );
   const navigate = useNavigate();
 
-  useEffect(() => {
+useEffect(() => {
+    if (formatTime(event.end_time, true, event.event_date) === 'ended') {
+      setEventEnded(true);
+    }
+
+    // Load image if online and no base64 image
     if (navigator.onLine && event.image_url && !event.image_base64) {
       const img = new Image();
       img.src = event.image_url;
       img.onload = () => setImageSrc(event.image_url);
-      img.onerror = () => setImageSrc("/path/to/local/placeholder.png");
+      img.onerror = () => setImageSrc("event");
     }
-  }, [event.image_url, event.image_base64]);
+  }, [event.image_url, event.image_base64, event.end_time, event.event_date]);
+
+  if (eventEnded) {
+    return null; 
+  }
 
   const handleClick = () => {
     if (onEventClick) {
@@ -59,7 +103,7 @@ function Event({ event, onEventClick, isHalloweenFilterActive }) {
           alt="Event"
           onError={(e) => {
             if (navigator.onLine) {
-              e.target.src = "/path/to/local/placeholder.png";
+              e.target.src = "event";
             }
           }}
         />
@@ -74,8 +118,8 @@ function Event({ event, onEventClick, isHalloweenFilterActive }) {
 
         {/* Time (start and end time on separate line) */}
         <div className="event-time">
-          {formatTime(event.start_time)}
-          {event.end_time && ` to ${formatTime(event.end_time)}`}
+          {formatTime(event.start_time, false, event.event_date)}
+          {event.end_time && ` to ${formatTime(event.end_time, true, event.event_date)}`}
         </div>
 
         {/* Event Title */}
