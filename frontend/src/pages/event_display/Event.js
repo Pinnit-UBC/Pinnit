@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import "./Event.css";
 
-
 // Function to format the date consistently to "MMMM D YYYY" (e.g., "October 25 2024")
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -17,7 +16,7 @@ function formatTime(time, is_end_time, eventDate) {
     return ''; // Handle invalid time
   }
   const currenttime = new Date();
-  
+
   // Get today's date (without time)
   const today = new Date();
   today.setHours(0, 0, 0, 0); // Set to midnight
@@ -26,13 +25,14 @@ function formatTime(time, is_end_time, eventDate) {
   const eventDateObject = new Date(eventDate);
   eventDateObject.setHours(0, 0, 0, 0); // Set to midnight
 
-  // Check if the event date is today
-  if (eventDateObject.getTime() === today.getTime()) {
+  // Check if the event date is today or if it's a late-night event ending after midnight
+  if (eventDateObject.getTime() === today.getTime() || (is_end_time && Number(time.split(":")[0]) < 6)) {
     const [hours, minutes] = time.split(":");
     const now = currenttime.getHours() * 60 + currenttime.getMinutes();
     const timeminutes = Number(hours) * 60 + Number(minutes);
     
-    if (now > timeminutes && is_end_time) {
+    // Skip 'ended' status for late-night events that cross over into the early morning
+    if (now > timeminutes && is_end_time && Number(hours) >= 6) {
       return `ended`;
     }
     if (now > timeminutes && !is_end_time) {
@@ -66,8 +66,10 @@ function Event({ event, onEventClick, isHalloweenFilterActive }) {
   );
   const navigate = useNavigate();
 
-useEffect(() => {
-    if (formatTime(event.end_time, true, event.event_date) === 'ended') {
+  useEffect(() => {
+    // Only set eventEnded to true if the event has ended and does not fall within the late-night time range
+    const isLateNight = event.end_time && Number(event.end_time.split(":")[0]) < 6;
+    if (formatTime(event.end_time, true, event.event_date) === 'ended' && !isLateNight) {
       setEventEnded(true);
     }
 
@@ -199,7 +201,7 @@ Event.propTypes = {
     registration_status: PropTypes.string.isRequired,
   }).isRequired,
   onEventClick: PropTypes.func.isRequired,
-  isHalloweenFilterActive: PropTypes.bool.isRequired, // Prop to check if Halloween filter is active
+  isHalloweenFilterActive: PropTypes.bool.isRequired,
 };
 
 export default Event;
