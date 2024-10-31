@@ -122,60 +122,31 @@ const HomePage = () => {
         <MessageScreen />
         <MenuDrawer open={isMenuOpen} onClose={toggleMenuDrawer} />
         <main className="main-content">
-          {isMobile ? (
-            <div className="mobile-header">
-              <div className="mobile-button-container">
-                <MobileFilterButton
-                  onFilterChange={{}}
-                  onPopularEventsClick={handlePopularEventsClick}
-                />
-                <MobileTimeline
-                  selectedDate={selectedDate}
-                  onDateChange={setSelectedDate}
-                />
-                <MobileDatePickerButton
+          <>
+            <div className="left-content">
+              <h2 className="text-xl">{formatSelectedDate()}</h2>
+              <EventsList events={eventData.events} />
+            </div>
+            <div className="right-content">
+              <div
+                className="date-picker-box"
+                style={{ width: "100%", display: "flex" }}
+              >
+                <DatePickerComponent
                   selectedDate={selectedDate}
                   setSelectedDate={setSelectedDate}
                 />
               </div>
-              {filteredEvents.length > 0 ? (
-                <Suspense fallback={<div>Loading events...</div>}>
-                  <MobileEventsList
-                    events={filteredEvents}
-                    onEventClick={handleEventClick}
-                  />
-                </Suspense>
-              ) : (
-                <div>No events found.</div>
-              )}
+              <Summary
+                eventCount={filteredEvents.length}
+                sponsoredEvent={sponsoredEvent}
+                onSponsoredEventClick={handleSponsoredEventClick}
+              />
+              <Suspense fallback={<div>Loading map...</div>}>
+                <MapComponent events={filteredEvents} />
+              </Suspense>
             </div>
-          ) : (
-            <>
-              <div className="left-content">
-                <h2 className="text-xl">{formatSelectedDate()}</h2>
-                <EventsList events={eventData.events} />
-              </div>
-              <div className="right-content">
-                <div
-                  className="date-picker-box"
-                  style={{ width: "100%", display: "flex" }}
-                >
-                  <DatePickerComponent
-                    selectedDate={selectedDate}
-                    setSelectedDate={setSelectedDate}
-                  />
-                </div>
-                <Summary
-                  eventCount={filteredEvents.length}
-                  sponsoredEvent={sponsoredEvent}
-                  onSponsoredEventClick={handleSponsoredEventClick}
-                />
-                <Suspense fallback={<div>Loading map...</div>}>
-                  <MapComponent events={filteredEvents} />
-                </Suspense>
-              </div>
-            </>
-          )}
+          </>
         </main>
       </div>
     </GoogleMapsScriptLoader>

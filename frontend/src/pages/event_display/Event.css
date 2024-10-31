@@ -4,8 +4,6 @@
   color: white;
   margin-bottom: 10px;
   padding: 10px 20px;
-  width: 100%;
-  max-width: 100%;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -26,10 +24,6 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
-.event-details {
-  flex-grow: 1;
-}
-
 .event-time,
 .event-title,
 .event-host,
@@ -37,14 +31,7 @@
 .event-registration,
 .event-tags {
   font-size: 18px;
-  margin-bottom: 5px;
   color: #b9b9b9;
-}
-
-.event-time {
-  margin-top: 0;
-  padding-top: 0;
-  font-weight: bold;
 }
 
 .event-title {
@@ -60,34 +47,6 @@
 .event-tags {
   display: flex;
   align-items: center;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  padding-top: 0px;
-}
-
-.event-location {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.event-host {
-  margin-top: 5px;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.event-registration {
-  margin-top: 5px;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.event-image img {
-  max-width: 220px;
-  max-height: 220px;
-  object-fit: cover;
-  border-radius: 15px;
-  margin-right: 10px;
 }
 
 .host-logo,
@@ -97,20 +56,6 @@
   height: 20px;
   margin-right: 10px;
   vertical-align: text-top;
-  margin-bottom: 7px;
-}
-
-.event-host .host-logo,
-.event-location .location-logo,
-.event-registration .registration-logo {
-  margin-right: 10px !important;
-}
-
-.event-tags {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-top: 10px;
 }
 
 .tag-logo {
@@ -124,7 +69,6 @@
   display: inline-block;
   padding: 2px 10px;
   margin-right: 8px;
-  margin-bottom: 8px;
   background-color: #464545;
   border-radius: 20px;
   border: 1px solid #ccc;
@@ -135,10 +79,8 @@
   background-color: #464545;
 }
 
-/* New CSS class to bolden the Halloween event date */
-.halloween-event-date {
+.event-date {
   font-weight: bold;
   font-size: 20px;
-  color: #ffffff; /* Keep the date color consistent */
-  margin-bottom: 10px;
+  color: #ffffff;
 }

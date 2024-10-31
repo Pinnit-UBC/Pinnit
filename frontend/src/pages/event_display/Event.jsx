@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import PersonIcon from "@mui/icons-material/Person";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import LabelIcon from "@mui/icons-material/Label";
 import "./Event.css";
 
 // Function to format the date consistently to "MMMM D YYYY" (e.g., "October 25 2024")
@@ -52,11 +56,12 @@ function Event({ event, onEventClick, isHalloweenFilterActive }) {
   };
 
   return (
-    <div className="event-container" onClick={handleClick}>
-      <div className="event-image">
+    <div className="event-container gap-5 justify-start" onClick={handleClick}>
+      <div className="w-[250px] h-[250px] flex-none relative overflow-hidden rounded-lg flex items-center justify-center">
         <img
           src={imageSrc}
           alt="Event"
+          className="object-cover"
           onError={(e) => {
             if (navigator.onLine) {
               e.target.src = "/path/to/local/placeholder.png";
@@ -64,56 +69,34 @@ function Event({ event, onEventClick, isHalloweenFilterActive }) {
           }}
         />
       </div>
-      <div className="event-details">
-        {/* Date - only shown for Halloween events */}
-        {isHalloweenFilterActive && (
-          <div className="event-date halloween-event-date">
-            {formatDate(event.event_date)}
-          </div>
-        )}
-
-        {/* Time (start and end time on separate line) */}
+      <div className="flex-grow flex-col flex gap-y-1">
+        <div className="event-title leading-tight">{event.event_title}</div>
+        <div className="event-date">{formatDate(event.event_date)}</div>
         <div className="event-time">
           {formatTime(event.start_time)}
           {event.end_time && ` to ${formatTime(event.end_time)}`}
         </div>
 
-        {/* Event Title */}
-        <div className="event-title">{event.event_title}</div>
-
-        {/* Location */}
         <div className="event-location">
-          <img
-            src="/assets/mdi_location.png"
-            alt="Location Logo"
-            className="location-logo"
-          />
+          <LocationOnIcon style={{ color: "white" }} className="mr-1" />
           {event.location}
         </div>
 
         {/* Host Organization */}
         <div className="event-host">
-          <img
-            src="/assets/teenyicons_user-solid.png"
-            alt="Host Logo"
-            className="host-logo"
-          />
+          <PersonIcon style={{ color: "white" }} className="mr-1" />
           {event.host_organization}
         </div>
 
         {/* Registration Status */}
         <div className="event-registration">
-          <img
-            src="/assets/Signing A Document.png"
-            alt="Registration Logo"
-            className="registration-logo"
-          />
+          <AppRegistrationIcon style={{ color: "white" }} className="mr-1" />
           {event.registration_status}
         </div>
 
         {/* Tags */}
-        <div className="event-tags">
-          <img src="/assets/Tag.png" alt="Tag Icon" className="tag-logo" />
+        <div className="event-tags flex-wrap mt-1">
+          <LabelIcon style={{ color: "white" }} className="mr-1" />
           {event.tags &&
             event.tags.map((tag, index) => (
               <span key={index} className="tag">

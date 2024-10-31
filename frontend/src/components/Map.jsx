@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import '../styles/Map.css';
-import { MarkerClusterer } from '@googlemaps/markerclusterer';
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import PropTypes from "prop-types";
+import "../styles/Map.css";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 const containerStyle = {
-  width: '100%',
-  height: '400px',
+  width: "100%",
+  height: "400px",
 };
 
 const MapComponent = ({ events }) => {
@@ -20,19 +20,21 @@ const MapComponent = ({ events }) => {
       markerClustererRef.current.clearMarkers();
     }
 
-    const markers = events.map(event => {
-      if (event.latitude && event.longitude) {
-        return new window.google.maps.Marker({
-          position: { lat: event.latitude, lng: event.longitude },
-          title: event.event_name,
-        });
-      }
-      return null;
-    }).filter(marker => marker !== null);
+    const markers = events
+      .map((event) => {
+        if (event.latitude && event.longitude) {
+          return new window.google.maps.Marker({
+            position: { lat: event.latitude, lng: event.longitude },
+            title: event.event_name,
+          });
+        }
+        return null;
+      })
+      .filter((marker) => marker !== null);
 
     if (markers.length > 0) {
       const bounds = new window.google.maps.LatLngBounds();
-      markers.forEach(marker => {
+      markers.forEach((marker) => {
         const position = marker.getPosition();
         if (position) {
           bounds.extend(position);
@@ -44,12 +46,12 @@ const MapComponent = ({ events }) => {
         if (!bounds.isEmpty()) {
           map.fitBounds(bounds);
         } else {
-          console.warn('Bounds are empty, defaulting map center.');
+          console.warn("Bounds are empty, defaulting map center.");
           map.setCenter({ lat: 49.263036774736136, lng: -123.24970352478029 });
           map.setZoom(10);
         }
       } catch (error) {
-        console.error('Error with bounds:', error);
+        console.error("Error with bounds:", error);
         map.setCenter({ lat: 49.263036774736136, lng: -123.24970352478029 });
         map.setZoom(10);
       }
@@ -66,7 +68,7 @@ const MapComponent = ({ events }) => {
       const map = new window.google.maps.Map(mapRef.current, {
         center: { lat: 49.263036774736136, lng: -123.24970352478029 },
         zoom: 10,
-        mapId: '8882b01a6088871f',
+        mapId: "8882b01a6088871f",
       });
 
       mapRef.current.mapInstance = map;
@@ -93,7 +95,9 @@ const MapComponent = ({ events }) => {
     }
   }, [mapInitialized, events, updateMarkers]);
 
-  return <div className="map-container" ref={mapRef} style={containerStyle}></div>;
+  return (
+    <div className="map-container" ref={mapRef} style={containerStyle}></div>
+  );
 };
 
 MapComponent.propTypes = {

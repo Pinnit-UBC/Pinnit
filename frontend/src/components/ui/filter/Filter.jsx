@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import "./Filter.css";
+import { useMediaQuery } from "@mui/material";
 
 function Filter({ onFilterChange, onHalloweenClick }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -73,7 +74,6 @@ function Filter({ onFilterChange, onHalloweenClick }) {
         {isDropdownOpen && (
           <div className="dropdown-menu">
             <div className="filter-group">
-              <h4>Filter</h4>
               {tagOptions.map((tag, index) => (
                 <div
                   key={index}

@@ -27,9 +27,6 @@ const EventsList = ({ events }) => {
         event.degree_level.some((degree) =>
           selectedDegreeLevel.includes(degree)
         );
-      console.log("FIRST");
-      console.log(selectedTags);
-      console.log(event.tags);
       return matchTags && matchFaculty && matchDegreeLevel;
     });
 
