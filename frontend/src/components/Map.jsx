@@ -1,14 +1,22 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  useContext,
+} from "react";
 import PropTypes from "prop-types";
 import "../styles/Map.css";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import { EventContext } from "../providers/EventsProvider";
 
 const containerStyle = {
   width: "100%",
   height: "400px",
 };
 
-const MapComponent = ({ events }) => {
+const MapComponent = () => {
+  const { events } = useContext(EventContext);
   const mapRef = useRef(null);
   const markerClustererRef = useRef(null);
   const [mapInitialized, setMapInitialized] = useState(false);

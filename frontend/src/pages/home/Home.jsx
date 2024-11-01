@@ -6,9 +6,6 @@ import dayjs from "dayjs";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useNavigate, useLocation } from "react-router-dom";
 import DatePickerComponent from "../../components/DatePickerComponent";
-import MobileTimeline from "../../components/mobile/MobileTimeline";
-import MobileFilterButton from "../../components/mobile/MobileFilterButton";
-import MobileDatePickerButton from "../../components/mobile/MobileDatePickerButton";
 import MenuDrawer from "../../components/ui/menu_drawer/MenuDrawer";
 import "../../App.css";
 
@@ -34,11 +31,6 @@ const HomePage = () => {
   const eventData = useContext(EventContext);
   const selectedDate = eventData.selectedDate;
   const setSelectedDate = eventData.setSelectedDate;
-
-  // Formats the selected date for display
-  const formatSelectedDate = () => {
-    return dayjs(selectedDate).format("dddd, MMMM D");
-  };
 
   useEffect(() => {
     const pathParts = location.pathname.split("/");
@@ -72,6 +64,10 @@ const HomePage = () => {
       setSelectedEvent(null);
     }
   }, [location.pathname, events, navigate]);
+
+  const formatSelectedDate = () => {
+    return dayjs(selectedDate).format("dddd, MMMM D");
+  };
 
   const toggleMenuDrawer = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -124,7 +120,9 @@ const HomePage = () => {
         <main className="main-content">
           <>
             <div className="left-content">
-              <h2 className="text-xl">{formatSelectedDate()}</h2>
+              <h2 className="mb-3 text-3xl font-bold">
+                {formatSelectedDate()}
+              </h2>
               <EventsList events={eventData.events} />
             </div>
             <div className="right-content">
