@@ -9,7 +9,7 @@ header {
   width: 100%;
   height: 255px; /* Background image height */
 /*  background-image: url('../assets/ubc_image.png'); */ /* Original Background*/ 
-  background-image: url('../assets/halloween_background.png'); /* Background image for halloween*/ 
+  background-image: url('../assets/ubc_image.png'); /* Background image for halloween*/ 
   background-size: cover;
   background-position: center;
   overflow: hidden;
