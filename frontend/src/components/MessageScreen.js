@@ -31,13 +31,18 @@ const MessageScreen = () => {
     <div className="message-overlay">
       <div className="message-box">
         <h2>Welcome to Pinnit UBC!</h2>
-        <h3 className="update-notes">October 20 Update notes</h3>
-        <p> Thank you for all your support and feedback! We're excited to be working on some exciting updates behind the scenes. </p>
+        <h3 className="update-notes">November 12 Update notes</h3>
+        <p>Happy Reading Week, everyone! We hope you had a fantastic break, enjoyed some well-deserved rest, and are feeling refreshed!</p>
         <p>Follow us on Instagram @pinnit_ubc to stay updated on what's coming next!</p>
         <p></p>
         <ul>
-          <li><strong>New Halloween Button</strong> to see all halloween activities</li>
-          <li><strong>Bug fix</strong> to mobile viewing</li>
+          <li><strong>More Events Posted</strong> from continously improving backend </li>
+
+          <h3 className="update-notes">Upcoming new features!</h3>
+          <li>Login and create accounts!</li>
+          <li>Save and favorite events</li>
+          <li>Event recommendation system</li>
+          <li>Transition to new UI</li>
         </ul>
         <div className="checkbox-container">
           <input type="checkbox" id="acknowledge" checked={isChecked} onChange={handleCheckboxChange} />
