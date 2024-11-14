@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import "./Filter.css";
 
-function Filter({ onFilterChange, onHalloweenClick }) {
+function Filter({ onFilterChange }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [isHalloweenFilterActive, setIsHalloweenFilterActive] = useState(false); // Track Halloween button state
+//  const [isHalloweenFilterActive, setIsHalloweenFilterActive] = useState(false); // Track Halloween button state
 
   const tagOptions = [
     "Culture & Community",
@@ -52,14 +52,15 @@ function Filter({ onFilterChange, onHalloweenClick }) {
     onFilterChange(updatedTags, [], []);
   };
 
-  const handleHalloweenClick = async () => {
-    setIsHalloweenFilterActive((prevState) => !prevState); // Toggle the state
-    if (!isHalloweenFilterActive) {
-      await onHalloweenClick(); // Call the new function to fetch Halloween events
-    } else {
-      onFilterChange(selectedTags, [], []); // Remove Halloween filter and show selected tags
-    }
-  };
+  // Halloween button code - commented out
+//  const handleHalloweenClick = async () => {
+//    setIsHalloweenFilterActive((prevState) => !prevState); // Toggle the state
+//    if (!isHalloweenFilterActive) {
+//      await onHalloweenClick(); // Call the new function to fetch Halloween events
+//    } else {
+//      onFilterChange(selectedTags, [], []); // Remove Halloween filter and show selected tags
+//    }
+//  };
 
   return (
     <div className="filter-container">
@@ -94,14 +95,15 @@ function Filter({ onFilterChange, onHalloweenClick }) {
           </div>
         )}
       </div>
-      <button
+      {/* Halloween button - commented out */}
+      {/* <button
         className={`halloween-button ${
           isHalloweenFilterActive ? "active" : ""
         }`}
         onClick={handleHalloweenClick}
       >
         View Halloween Events
-      </button>
+      </button> */}
       <div className="selected-options">
         {selectedTags.map((tag, index) => (
           <span key={index} className="selected-option">
@@ -118,7 +120,7 @@ function Filter({ onFilterChange, onHalloweenClick }) {
 
 Filter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
-  onHalloweenClick: PropTypes.func.isRequired,
+//  onHalloweenClick: PropTypes.func.isRequired, // Halloween button prop - commented out
 };
 
 export default Filter;
