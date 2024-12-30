@@ -3,7 +3,6 @@ import '../styles/MessageScreen.css';
 
 const MessageScreen = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     const messageSeen = localStorage.getItem('messageSeen');
@@ -12,14 +11,7 @@ const MessageScreen = () => {
     }
   }, []);
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-  };
-
   const handleClose = () => {
-    if (isChecked) {
-      localStorage.setItem('messageSeen', 'true');
-    }
     setIsVisible(false);
   };
 
@@ -30,25 +22,67 @@ const MessageScreen = () => {
   return (
     <div className="message-overlay">
       <div className="message-box">
-        <h2>Welcome to Pinnit UBC!</h2>
-        <h3 className="update-notes">November 12 Update notes</h3>
-        <p>Happy Reading Week, everyone! We hope you had a fantastic break, enjoyed some well-deserved rest, and are feeling refreshed!</p>
-        <p>Follow us on Instagram @pinnit_ubc to stay updated on what's coming next!</p>
-        <p></p>
-        <ul>
-          <li><strong>More Events Posted</strong> from continously improving backend </li>
-
-          <h3 className="update-notes">Upcoming new features!</h3>
-          <li>Login and create accounts!</li>
-          <li>Save and favorite events</li>
-          <li>Event recommendation system</li>
-          <li>Transition to new UI</li>
-        </ul>
-        <div className="checkbox-container">
-          <input type="checkbox" id="acknowledge" checked={isChecked} onChange={handleCheckboxChange} />
-          <label htmlFor="acknowledge">Don't show me again</label>
+        <div className="message-header">
+          <h2>🚧 Website Maintenance Announcement 🚧</h2>
         </div>
-        <button onClick={handleClose}>Got it!</button>
+        <p>
+          We’re thrilled to announce that <strong>Pinnit UBC</strong> is undergoing maintenance as we prepare to roll out some <strong>major updates and exciting new features</strong> based on the amazing feedback we’ve received from students like you! 🎉
+        </p>
+        <br />
+        <p><strong>Here’s what’s coming soon:</strong></p>
+        <ul>
+          <li>🔒 <strong>Login System:</strong> Easily save your favorite events and track them in one place.</li>
+          <li>✨ <strong>Personalized Club and Event Recommendations:</strong> Discover activities tailored to your interests.</li>
+          <li>📋 <strong>Customized Dashboard:</strong> Your events, your way—organized just for you.</li>
+        </ul>
+        <p>
+          <br />
+          <strong>Join the waitlist and stay tuned—we’ll be back better than ever! 🚀</strong>
+        </p>
+        <img
+          src={`${process.env.PUBLIC_URL}/assets/template.svg`}
+          alt="Pinnit UBC Upgrade"
+          style={{
+            marginTop: '20px',
+            width: '100%',
+            maxWidth: '500px',
+            display: 'block',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+        />
+        <button
+          className="signup-button"
+          style={{
+            marginTop: '20px',
+            display: 'block',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            padding: '10px 20px',
+            fontSize: '16px',
+            cursor: 'pointer',
+          }}
+          onClick={() =>
+            window.open(
+              'https://forms.gle/dhnic9H5qTpPYtsh9',
+              '_blank'
+            )
+          }
+        >
+          ✍️ Join the waitlist now
+        </button>
+        <p
+          className="continue-link"
+          onClick={handleClose}
+          style={{
+            color: 'white',
+            cursor: 'pointer',
+            marginTop: '20px',
+            textAlign: 'center',
+          }}
+        >
+        Continue to Pinnit UBC
+        </p>
       </div>
     </div>
   );

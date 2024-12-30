@@ -1,0 +1,65 @@
+{
+  "sorted_middleware": [],
+  "middleware": {
+    "/": {
+      "files": [
+        "server/edge/chunks/_6afb5a._.js",
+        "server/edge/chunks/node_modules_mongoose_dist_browser_umd_3111d6.js",
+        "server/edge/chunks/[root of the server]__f17fae._.js",
+        "server/edge/chunks/edge-wrapper_0a9642.js"
+      ],
+      "name": "middleware",
+      "page": "/",
+      "matchers": [
+        {
+          "regexp": "/:nextData(_next/data/[^/]{1,})?/protected/:path*(.json)?",
+          "originalSource": "/protected/:path*"
+        }
+      ],
+      "wasm": [],
+      "assets": [
+        {
+          "name": "server/edge/chunks/_6afb5a._.js.map",
+          "filePath": "server/edge/chunks/_6afb5a._.js.map"
+        },
+        {
+          "name": "server/edge/chunks/_6afb5a._.js",
+          "filePath": "server/edge/chunks/_6afb5a._.js"
+        },
+        {
+          "name": "server/edge/chunks/node_modules_mongoose_dist_browser_umd_3111d6.js.map",
+          "filePath": "server/edge/chunks/node_modules_mongoose_dist_browser_umd_3111d6.js.map"
+        },
+        {
+          "name": "server/edge/chunks/node_modules_mongoose_dist_browser_umd_3111d6.js",
+          "filePath": "server/edge/chunks/node_modules_mongoose_dist_browser_umd_3111d6.js"
+        },
+        {
+          "name": "server/edge/chunks/[root of the server]__f17fae._.js.map",
+          "filePath": "server/edge/chunks/[root of the server]__f17fae._.js.map"
+        },
+        {
+          "name": "server/edge/chunks/[root of the server]__f17fae._.js",
+          "filePath": "server/edge/chunks/[root of the server]__f17fae._.js"
+        },
+        {
+          "name": "server/edge/chunks/edge-wrapper_0a9642.js.map",
+          "filePath": "server/edge/chunks/edge-wrapper_0a9642.js.map"
+        },
+        {
+          "name": "server/edge/chunks/edge-wrapper_0a9642.js",
+          "filePath": "server/edge/chunks/edge-wrapper_0a9642.js"
+        }
+      ],
+      "env": {
+        "__NEXT_BUILD_ID": "development",
+        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "nscYjvvfYd8ASx6ONQejBtapO9FPKp/0lGPkmPG1G2A=",
+        "__NEXT_PREVIEW_MODE_ID": "29f96c836dc89c09eac5a7064dbb64ee",
+        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "0a2c0d9f158916bedac9d7f8c35ad0afd5727d8c89e001fffa117ff944e84076",
+        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "883e50d1ad85de7b5d70e6448ba983424504db8495c2a3f69f81df2b80975373"
+      }
+    }
+  },
+  "instrumentation": null,
+  "functions": {}
+}
