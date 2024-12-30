@@ -39,7 +39,7 @@ const MessageScreen = () => {
           <strong>We're getting ready to launch! Sign up for the waitlist and stay tuned 🚀 </strong>
         </p>
         <img
-          src={`${process.env.PUBLIC_URL}/assets/template.svg`}
+          src={`${process.env.PUBLIC_URL}/assets/Update-Pinnit.svg`}
           alt="Pinnit UBC Upgrade"
           style={{ marginTop: '120px', width: '100%', maxWidth: '600px', display: 'block', margin: '0 auto', paddingTop: '00px'}}
         />
