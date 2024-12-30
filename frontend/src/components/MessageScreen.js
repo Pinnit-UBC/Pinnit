@@ -48,7 +48,7 @@ const MessageScreen = () => {
             className="signup-button"
             onClick={() =>
               window.open(
-                'https://docs.google.com/forms/d/1nlk-PM6V_Ptyc22FoDJPaLZxgvHQ7nIXPBRXHpr-M08',
+                'https://docs.google.com/forms/d/e/1FAIpQLSeD7CAb3ZrM-AQvsdM9cz_w7KRkqjEqQTXKbR_gulWdsB_aog/viewform?usp=dialog',
                 '_blank'
               )
             }
